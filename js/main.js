@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
   fetchNeighborhoods();
   fetchCuisines();
+  registerServiceWorker();
 });
 
 /**
@@ -73,18 +74,21 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  */
 initMap = () => {
   self.newMap = L.map('map', {
-        center: [40.722216, -73.987501],
-        zoom: 12,
-        scrollWheelZoom: false
-      });
+    center: [40.722216, -73.987501],
+    zoom: 12,
+    scrollWheelZoom: false
+  });
+
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-    mapboxToken: '<your MAPBOX API KEY HERE>',
+    mapboxToken: 'pk.eyJ1IjoiZGFoaGFtIiwiYSI6ImNqa2Y0aTEwNDA0eWwzdm56ZGl4cHZxYncifQ.pFJ9P_zH7VpiMJvRP4M4BQ',
     maxZoom: 18,
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
       'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox.streets'
   }).addTo(newMap);
+
+  A11yHelper.putA11yToMap(self.newMap)
 
   updateRestaurants();
 }
@@ -157,11 +161,33 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
+  li.setAttribute('tabIndex', "0");
+  li.setAttribute('aria-label', `${restaurant.name} restaurant ${restaurant.neighborhood}`);
 
   const image = document.createElement('img');
+  image.alt = restaurant.name
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+
+  const picture = document.createElement('picture');
+  const source_large = document.createElement('source');
+  source_large.setAttribute('media', '(min-width: 1000px)');
+  source_large.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'large'));
+
+  const source_medium = document.createElement('source');
+  source_medium.setAttribute('media', '(min-width: 700px)');
+  source_medium.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'medium'));
+
+  const source_small = document.createElement('source');
+  source_small.setAttribute('media', '(max-width: 699px)')
+  source_small.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'small'));
+
+  picture.append(source_small);
+  picture.append(source_large);
+  picture.append(source_medium);
+
+  picture.append(image)
+  li.append(picture);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;
@@ -176,6 +202,7 @@ createRestaurantHTML = (restaurant) => {
   li.append(address);
 
   const more = document.createElement('a');
+  more.setAttribute('aria-label', `View more details on ${restaurant.name} restaurant.`);
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   li.append(more)
@@ -191,13 +218,13 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.newMap);
     marker.on("click", onClick);
+
     function onClick() {
       window.location.href = marker.options.url;
     }
     self.markers.push(marker);
   });
-
-} 
+}
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
@@ -209,3 +236,49 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 } */
 
+
+/**
+ * @description Register service worker
+ */
+registerServiceWorker = () => {
+  if (!navigator.serviceWorker) return;
+
+  navigator.serviceWorker.register('sw.js').then(registration => {
+    console.log('service worker registered successfully...!');
+
+    if (registration.installing) {
+      self.trackInstalling(registration.installing);
+      //return;
+    }
+
+    if (registration.waiting) {
+      self.trackWaiting(registration.waiting);
+      //return;
+    }
+
+    self.addEventListener('updatefound', () => {
+      trackInstalling(registration.installing);
+    })
+
+  }).catch(reason => {
+    console.log('Failed to register service worker :', reason);
+  })
+
+  self.trackInstalling = (worker) => {
+    worker.addEventListener('statechange', () => {
+      if (worker.state == 'installed') {
+        updateReady(worker);
+      }
+    })
+  }
+
+  self.trackWaiting = (worker) => {
+    updateReady(worker);
+  }
+
+  self.updateReady = (worker) => {
+    worker.postMessage({
+      action: 'skipWaiting'
+    })
+  }
+};
