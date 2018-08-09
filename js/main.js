@@ -161,7 +161,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-  li.setAttribute('tabIndex', "0");
+  li.setAttribute('tabIndex', '0');
   li.setAttribute('aria-label', `${restaurant.name} restaurant ${restaurant.neighborhood}`);
 
   const image = document.createElement('img');

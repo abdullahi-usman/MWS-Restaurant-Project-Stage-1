@@ -10,8 +10,8 @@ class A11yHelper {
         for (let img of element.children) {
 
           if (img.localName === 'img' && !img.hasAttribute('aria-hidden')) {
-            img.setAttribute('aria-hidden', "true");
-            img.setAttribute('tabIndex', "-1");
+            img.setAttribute('aria-hidden', 'true');
+            img.setAttribute('tabIndex', '-1');
           }
         }
       }
@@ -20,8 +20,8 @@ class A11yHelper {
         for (let element of document.getElementsByClassName('leaflet-control-zoom')) {
           for (let zoomBtn of element.children) {
             if (zoomBtn.localName === 'a' && !zoomBtn.hasAttribute('aria-hidden')) {
-              zoomBtn.setAttribute('aria-hidden', "true");
-              zoomBtn.setAttribute('tabIndex', "-1");
+              zoomBtn.setAttribute('aria-hidden', 'true');
+              zoomBtn.setAttribute('tabIndex', '-1');
             }
           }
         }
@@ -34,14 +34,14 @@ class A11yHelper {
 
       for (let ahref of element.children) {
         if (ahref.localName === 'a' && !ahref.hasAttribute('aria-hidden')) {
-          ahref.setAttribute('aria-hidden', "true");
-          ahref.setAttribute('tabIndex', "-1");
+          ahref.setAttribute('aria-hidden', 'true');
+          ahref.setAttribute('tabIndex', '-1');
         }
       }
     }
 
     const mapContainer = document.getElementById('map')
-    mapContainer.setAttribute('aria-hidden', "true")
+    mapContainer.setAttribute('aria-hidden', 'true')
     mapContainer.setAttribute('tabIndex', '-1');
   }
 }
