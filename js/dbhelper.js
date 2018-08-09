@@ -153,7 +153,8 @@ class DBHelper {
   }
 
   /**
-   * Restaurant image URL.
+   * @description Restaurant image URL.
+   * @returns   The image url for the restaurant
    * 
    */
   static imageUrlForRestaurant(restaurant, type = 'medium', quality = 2) {
@@ -161,7 +162,9 @@ class DBHelper {
   }
 
   /**
-   * Restaurant image URL for <source> tags.
+   * @description Restaurant image URL for <source> tags.
+   * @param restaurant - The restaurant
+   * @param {string} type - The image type e.g "large" "meduim" "small"
    */
 
   static sourceUrlsForRestaurant(restaurant, type) {
