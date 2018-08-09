@@ -86,10 +86,14 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   name.setAttribute('tabIndex', '0');
   name.setAttribute('aria-label', `Restaurant name, ${restaurant.name}`)
 
-  const address = document.getElementById('restaurant-address');
+  self.address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
   address.setAttribute('tabIndex', '0');
   address.setAttribute('aria-label', `Address ${restaurant.address}`);
+
+  address.addEventListener('focus', focusevent => {
+    hours.setAttribute('tabIndex', '0');
+  })
 
   const source_large = document.getElementById('source-large');
   source_large.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'large'));
@@ -103,7 +107,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.setAttribute('alt', `${restaurant.name} restaurant ${restaurant.neighboorhood}`);
+  image.setAttribute('alt', `image of ${restaurant.name} restaurant from ${restaurant.neighboorhood}`);
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -120,7 +124,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
-  const hours = document.getElementById('restaurant-hours');
+  self.hours = document.getElementById('restaurant-hours');
   hours.setAttribute('tabIndex', '0');
   hours.setAttribute('aria-label', 'Operating hours')
 
@@ -135,15 +139,22 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
     time.innerHTML = operatingHours[key];
     row.appendChild(time);
 
-    row.setAttribute('tabIndex', '0');
     row.setAttribute('aria-label', `${key} ${operatingHours[key].replace('-', 'to').replace(',', ' and ')}`);
 
     hours.appendChild(row);
 
   }
 
-  hours.addEventListener('focus', (focusevent) => {
+  hours.addEventListener('focus', focusevent => {
+    for (let child of hours.children) {
+      child.setAttribute('tabIndex', '0');
+    }
 
+    ul.setAttribute('tabIndex', '0');
+  })
+
+  hours.firstChild.addEventListener('focus', focusevent => {
+    hours.setAttribute('tabIndex', '-1');
   })
 }
 
@@ -166,13 +177,27 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     div.appendChild(noReviews);
     return;
   }
-  const ul = document.getElementById('reviews-list');
-  ul.setAttribute('tabIndex', '0');
+
+  self.ul = document.getElementById('reviews-list');
   ul.setAttribute('aria-label', 'Customers Reviews');
 
   reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
   });
+
+
+  ul.addEventListener('focus', focusevent => {
+
+    for (let child of hours.children) {
+      child.setAttribute('tabIndex', '-1');
+    }
+
+    hours.setAttribute('tabIndex', '0');
+  })
+
+  ul.firstChild.addEventListener('focus', focusevent => {
+    ul.setAttribute('tabIndex', '-1');
+  })
 
   div.appendChild(ul);
   container.appendChild(div);
