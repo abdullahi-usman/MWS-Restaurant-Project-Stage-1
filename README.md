@@ -1,3 +1,17 @@
+# My MWS Course Project
+
+```
+git clone https://github.com/dahham/MWS-Restaurant-Project-Stage-1.git
+cd MWS-Restaurant-Project-Stage-1
+
+python -m SimpleHTTPServer 8000
+```
+and then visit the site at: `http://localhost:8000`
+
+or simply goto [`https://dahham.github.io/MWS-Restaurant-Project-Stage-1/`](https://dahham.github.io/MWS-Restaurant-Project-Stage-1/)
+
+--------------------------------------------------------------------------
+
 # Mobile Web Specialist Certification Course
 ---
 #### _Three Stage Course Material Project - Restaurant Reviews_
