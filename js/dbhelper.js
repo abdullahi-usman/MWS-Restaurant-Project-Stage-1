@@ -152,7 +152,7 @@ class DBHelper {
    * 
    */
   static imageUrlForRestaurant(restaurant, type = 'medium', quality = 2) {
-    return (`/img/${restaurant.id}-${type}_${quality}x.jpg`);
+    return (`${window.location.href}img/${restaurant.id}-${type}_${quality}x.jpg`);
   }
 
   /**
