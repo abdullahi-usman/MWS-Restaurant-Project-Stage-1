@@ -9,6 +9,16 @@ self.addEventListener('install', event => {
   }));
 })
 
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(cacheList => {
+    Promise.all(cacheList.map(cache => {
+      if (cache !== cacheName) {
+        return caches.delete(cache);
+      }
+    }))
+  }));
+})
+
 self.addEventListener('fetch', event => {
 
   event.respondWith(caches.match(event.request).then(response => {
