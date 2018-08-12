@@ -1,4 +1,4 @@
-const cacheName = 'restaurant-reviews-v1';
+const cacheName = 'restaurant-reviews-v2';
 const offlineWeb = ['./', 'index.html', 'restaurant.html', 'js/a11yhelper.js', 'js/dbhelper.js', 'js/restaurant_info.js', 'js/main.js', 'css/styles.css', 'data/restaurants.json'];
 const leafletOfflineWeb = ['https://unpkg.com/leaflet@1.3.1/dist/leaflet.css', 'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js']
 
