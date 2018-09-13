@@ -21,18 +21,33 @@ class DBHelper {
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', DBHelper.DATABASE_URL);
-    xhr.onload = () => {
-      if (xhr.status === 200) { // Got a success response from server!
-        const restaurants = JSON.parse(xhr.responseText);;
-        callback(null, restaurants);
-      } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
-        callback(error, null);
-      }
-    };
-    xhr.send();
+    this.idbPromised = idb.open('restaurants.db', 1, upgradeDb => {
+      return upgradeDb.createObjectStore('restaurants');
+    }).then(db => {
+      db.transaction('restaurants', 'readonly').objectStore('restaurants').getAll().then(storedRestaurants => {
+        if (storedRestaurants && storedRestaurants.length > 0) {
+          callback(null, storedRestaurants);
+        } else {
+          let xhr = new XMLHttpRequest();
+          xhr.open('GET', DBHelper.DATABASE_URL);
+          xhr.onload = () => {
+            if (xhr.status === 200) { // Got a success response from server!
+              const restaurants = JSON.parse(xhr.responseText)
+              const store = db.transaction('restaurants', 'readwrite').objectStore('restaurants')
+              for (var restaurant of restaurants) {
+                store.put(restaurant, restaurant.id);
+              }
+
+              callback(null, restaurants);
+            } else { // Oops!. Got an error from server.
+              const error = (`Request failed. Returned status of ${xhr.status}`);
+              callback(error, null);
+            }
+          };
+          xhr.send();
+        }
+      })
+    })
 
   }
 
