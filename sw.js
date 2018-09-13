@@ -27,7 +27,7 @@ self.addEventListener('fetch', event => {
 
     return response || fetch(event.request.url).then(url_response => {
 
-      if (url_response && url_response.ok && (url_response.url.endsWith('.jpg')) ||
+      if (url_response && url_response.ok && (url_response.url.endsWith('restaurants') || url_response.url.endsWith('.jpg')) ||
         url_response.url.endsWith('.png') || url_response.url.startsWith('https://api.tiles.mapbox.com')) {
         caches.open(cacheName).then(cache => cache.put(url_response.url, url_response)).catch(reason => console.log(reason));
       }
