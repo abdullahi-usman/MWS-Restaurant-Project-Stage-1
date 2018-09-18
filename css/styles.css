@@ -1,6 +1,6 @@
 @charset "utf-8";
-/* CSS Document */
 
+/* CSS Document */
 a,
 button {
   min-width: 48px;
@@ -76,7 +76,7 @@ section {
 }
 
 #footer {
-  background-color: #444;
+  background-color: #444444e8;
   color: #aaa;
   font-size: 8pt;
   letter-spacing: 1px;
@@ -102,6 +102,7 @@ section {
     display: block;
     visibility: visible;
   }
+
   #footer #footer-content {
     line-height: 1em;
   }
@@ -112,13 +113,13 @@ section {
     display: block;
     visibility: visible;
   }
+
   .inside #footer #footer-content {
     line-height: 0.7em;
   }
 }
 
 /* ====================== Navigation ====================== */
-
 nav {
   width: 100%;
   height: 80px;
@@ -152,13 +153,11 @@ nav h1 a {
 }
 
 /* Display list items side by side */
-
 #breadcrumb li {
   display: inline;
 }
 
 /* Add a slash symbol (/) before/behind each list item */
-
 #breadcrumb li+li:before {
   padding: 8px;
   color: black;
@@ -166,21 +165,18 @@ nav h1 a {
 }
 
 /* Add a color to all links inside the list */
-
 #breadcrumb li a {
   color: #0275d8;
   text-decoration: none;
 }
 
 /* Add a color on mouse-over */
-
 #breadcrumb li a:hover {
   color: #01447e;
   text-decoration: underline;
 }
 
 /* ====================== Map ====================== */
-
 #map {
   height: 400px;
   width: 100%;
@@ -188,7 +184,6 @@ nav h1 a {
 }
 
 /* ====================== Restaurant Filtering ====================== */
-
 .filter-options {
   width: 100%;
   /*  height: 50px; */
@@ -197,7 +192,7 @@ nav h1 a {
 }
 
 .filter-options h2 {
-  color: white;
+  color: #000000;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1;
@@ -232,7 +227,6 @@ div#options {
 }
 
 /* ====================== Restaurant Listing ====================== */
-
 #restaurants-list {
   background-color: #f3f3f3;
   list-style: outside none none;
@@ -281,7 +275,7 @@ div#options {
 }
 
 #restaurants-list li a {
-  background-color: orange;
+  background-color: #694858;
   border-bottom: 3px solid #eee;
   color: #fff;
   /* display: inline-block; */
@@ -301,7 +295,6 @@ div#options {
 }
 
 /* ====================== Restaurant Details ====================== */
-
 .inside header {
   position: fixed;
   top: 0;
@@ -310,7 +303,7 @@ div#options {
 }
 
 .inside #map-container {
-  background: blue none repeat scroll 0 0;
+  background: white none repeat scroll 0 0;
   height: 87vh;
   position: fixed;
   right: 0;
@@ -446,7 +439,6 @@ section#restaurant-container {
 }
 
 /* ========================= Map ==================================== */
-
 .leaflet-touch .leaflet-bar a {
   display: grid;
   align-content: center;
