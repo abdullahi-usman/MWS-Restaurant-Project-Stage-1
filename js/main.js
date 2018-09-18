@@ -172,15 +172,15 @@ createRestaurantHTML = (restaurant) => {
 
   const picture = document.createElement('picture');
   const source_large = document.createElement('source');
-  source_large.setAttribute('media', '(min-width: 1000px)');
+  source_large.setAttribute('media', '(min-width: 1600px)');
   source_large.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'large'));
 
   const source_medium = document.createElement('source');
-  source_medium.setAttribute('media', '(min-width: 700px)');
+  source_medium.setAttribute('media', '(min-width: 800px)');
   source_medium.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'medium'));
 
   const source_small = document.createElement('source');
-  source_small.setAttribute('media', '(max-width: 699px)')
+  source_small.setAttribute('media', '(max-width: 799px)')
   source_small.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'small'));
 
   picture.append(source_small);
