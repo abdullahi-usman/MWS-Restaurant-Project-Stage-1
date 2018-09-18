@@ -448,3 +448,12 @@ section#restaurant-container {
 div.leaflet-control-attribution .leaflet-control {
   aria-hidden: true;
 }
+
+.leftlet-container .leftlet-control-attribution,
+.leftlet-container .leftlet-control-scale {
+  font-size: 12px;
+}
+
+.leaflet-container a {
+  color: #15546d;
+}
