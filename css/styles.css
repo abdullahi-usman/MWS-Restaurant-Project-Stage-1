@@ -78,7 +78,7 @@ section {
 #footer {
   background-color: #444444e8;
   color: #aaa;
-  font-size: 8pt;
+  font-size: 12px;
   letter-spacing: 1px;
   padding: 25px 0;
   text-align: center;
@@ -87,6 +87,7 @@ section {
 }
 
 #footer #footer-content {
+  -webkit-text-fill-color: white;
   max-width: 1000px;
   text-align: center;
   margin: 0 auto;
@@ -424,9 +425,9 @@ section#restaurant-container {
     height: 70vh;
     padding-top: 50px;
   }
-  
+
   #restaurant-container {
-    padding-top: 100px; 
+    padding-top: 100px;
   }
 
   #breadcrumb,
