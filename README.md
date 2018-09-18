@@ -10,6 +10,13 @@ and then visit the site at: `http://localhost:8000`
 
 or simply goto [`https://dahham.github.io/MWS-Restaurant-Project-Stage-1/`](https://dahham.github.io/MWS-Restaurant-Project-Stage-1/)
 
+## Credits
+ 
+### Jake Archibald
+[Jake Archibald's IndexedDB script](https://github.com/jakearchibald/idb/blob/master/lib/idb.js)
+
+This project use the IndexedDB(`js/idb.js`) script, written by Jake Archibald.
+
 --------------------------------------------------------------------------
 
 # Mobile Web Specialist Certification Course
