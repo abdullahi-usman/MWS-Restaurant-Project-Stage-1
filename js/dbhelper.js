@@ -245,4 +245,11 @@ class DBHelper {
     return marker;
   } */
 
+  static fetchReviews(restaurant, callback) {
+    fetch(`http://localhost:1337/reviews/?restaurant_id=${restaurant.id}`).then(response => {
+      return response.json();
+    }).then(reviews => {
+      callback(reviews);
+    });
+  }
 }
