@@ -242,6 +242,24 @@ createReviewHTML = (review) => {
   return li;
 }
 
+toggleFavIcon = () => {
+  const fav = document.getElementById('fav-icon');
+  if (self.restaurant.is_favorite === "true" || self.restaurant.is_favorite === true) {
+    fav.setAttribute('class', 'fontawesome-star')
+  } else {
+    fav.setAttribute('class', 'fontawesome-star-empty')
+  }
+}
+
+favIconClickListener = () => {
+  DBHelper.toggleFavorite(self.restaurant, new_restaurant => {
+
+    if (new_restaurant != null) {
+      self.restaurant = new_restaurant;
+      toggleFavIcon(new_restaurant.is_favorite);
+    }
+  })
+}
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
