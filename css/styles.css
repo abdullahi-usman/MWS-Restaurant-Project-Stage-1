@@ -528,4 +528,11 @@ div.leaflet-control-attribution .leaflet-control {
 
 .reviews-submit {
   float: right;
+  background-color: darkblue;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0.2);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  min-width: 60px;
+  text-align: center;
+  border-radius: 5px;
 }
