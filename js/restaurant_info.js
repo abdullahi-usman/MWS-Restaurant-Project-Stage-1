@@ -232,8 +232,10 @@ createReviewHTML = (review) => {
   li.appendChild(name);
 
   const date = document.createElement('p');
-  date.innerHTML = review.date;
+  date.innerHTML = review.date || new Date(review.createdAt).toGMTString()
   li.appendChild(date);
+
+  
 
   const rating = document.createElement('p');
   rating.innerHTML = `Rating: ${review.rating}`;
