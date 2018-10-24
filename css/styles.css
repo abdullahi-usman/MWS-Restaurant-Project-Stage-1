@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+/* fonts      */
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
+
 /* CSS Document */
 a,
 button {
