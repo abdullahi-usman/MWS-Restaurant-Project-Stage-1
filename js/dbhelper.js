@@ -45,6 +45,7 @@ class DBHelper {
               for (var restaurant of restaurants) {
                 store.put(restaurant, restaurant.id);
               }
+              store.complete;
 
               callback(null, restaurants);
             } else { // Oops!. Got an error from server.
