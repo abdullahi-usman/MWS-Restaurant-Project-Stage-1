@@ -69,6 +69,22 @@ class DBHelper {
     })
   }
 
+  static toggleFavorite(restaurant, callback) {
+    fetch(`${this.DATABASE_URL}/${restaurant.id}/?is_favorite=${restaurant.is_favorite === "true" || restaurant.is_favorite === true ? 'false' : 'true'}`, {
+      method: 'PUT'
+    }).then(result => {
+      return result.json()
+    }).then(new_restaurant => {
+
+      if (new_restaurant != null) {
+        console.log('result', new_restaurant);
+        this.updateDb(new_restaurant)
+      }
+
+      callback(new_restaurant)
+    });
+  }
+
   /**
    * Fetch a restaurant by its ID.
    */
