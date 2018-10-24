@@ -72,6 +72,7 @@ fetchRestaurantFromURL = (callback) => {
     callback(error, null);
   } else {
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
+
       self.restaurant = restaurant;
       if (!restaurant) {
         console.error(error);
@@ -247,6 +248,7 @@ createReviewHTML = (review) => {
 
   li.setAttribute('tabIndex', '0');
   li.setAttribute('aria-label', `Review from ${review.name} on ${review.date} with ${review.rating} rating. ${review.comments}`)
+  
   return li;
 }
 
