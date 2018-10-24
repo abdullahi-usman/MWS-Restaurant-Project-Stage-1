@@ -17,13 +17,21 @@ class DBHelper {
 
     return `${window.location.origin}${path}`;
   }
+
+  static get DB() {
+    if (this.idbPromised == null) {
+      this.idbPromised = idb.open('restaurants.db', 1, upgradeDb => {
+        return upgradeDb.createObjectStore('restaurants');
+      })
+    }
+
+    return this.idbPromised;
+  }
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    this.idbPromised = idb.open('restaurants.db', 1, upgradeDb => {
-      return upgradeDb.createObjectStore('restaurants');
-    }).then(db => {
+    this.DB.then(db => {
       db.transaction('restaurants', 'readonly').objectStore('restaurants').getAll().then(storedRestaurants => {
         if (storedRestaurants && storedRestaurants.length > 0) {
           callback(null, storedRestaurants);
