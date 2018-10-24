@@ -276,6 +276,18 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
   const li = document.createElement('li');
   li.innerHTML = restaurant.name;
   breadcrumb.appendChild(li);
+
+  const fav = document.createElement('li');
+  fav.setAttribute('id', 'fav-icon');
+  fav.setAttribute('style', 'float: right; font-size: 1.2em;');
+  fav.setAttribute('class', 'fontawesome-star-empty');
+
+  fav.addEventListener('click', favIconClickListener);
+
+  breadcrumb.appendChild(fav)
+
+  toggleFavIcon(restaurant.is_favorite)
+}
 }
 
 /**
