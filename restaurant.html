@@ -36,56 +36,90 @@
   </header>
   <!-- End header -->
 
-  <!-- Beginning main -->
-  <main id="maincontent">
-    <!-- Beginning map -->
-    <section id="map-container">
-      <div id="map" role="application" , aria-label="location"></div>
-    </section>
-    <!-- End map -->
-    <!-- Beginning restaurant -->
-    <section id="restaurant-container">
-      <div id="restaurant-details">
-        <h2 id="restaurant-name"></h2>
-        <picture id="restaurant-image-container">
-          <source id="source-large" media="(min-width: 700px)">
-          <source id="source-medium" media="(min-width: 40100px)">
-          <source id="source-small" media="(max-width: 400px)">
-          <img id="restaurant-img" sizes="(min-width: 901px)50vw, 100vw">
-        </picture>
-        <p id="restaurant-cuisine"></p>
-        <p id="restaurant-address"></p>
-        <table id="restaurant-hours"></table>
-      </div>
-    </section>
-    <!-- end restaurant -->
-    <!-- Beginning reviews -->
-    <section id="reviews-container">
-      <ul id="reviews-list"></ul>
-    </section>
-    <!-- End reviews -->
-  </main>
-  <!-- End main -->
+    <!-- Beginning main -->
+    <main id="maincontent">
+      <!-- Beginning map -->
+      <section id="map-container">
+        <div id="map" role="application" , aria-label="location"></div>
+      </section>
+      <!-- End map -->
+      <!-- Beginning restaurant -->
+      <section id="restaurant-container">
+        <div id="restaurant-details">
+          <h2 id="restaurant-name"></h2>
+          <picture id="restaurant-image-container">
+            <source id="source-large" media="(min-width: 700px)">
+            <source id="source-medium" media="(min-width: 40100px)">
+            <source id="source-small" media="(max-width: 400px)">
+            <img id="restaurant-img" sizes="(min-width: 901px)50vw, 100vw">
+          </picture>
+          <p id="restaurant-cuisine"></p>
+          <p id="restaurant-address"></p>
+          <table id="restaurant-hours"></table>
+        </div>
+      </section>
+      <!-- end restaurant -->
+      <!-- Beginning reviews -->
+      <section id="reviews-container">
+        <ul id="reviews-list"></ul>
 
-  <!-- Beginning footer -->
-  <footer id="footer">
-    <div id="footer-content">
-      Copyright (c) 2017
-      <span aria-hidden="true" class="footer-br">
-        <br>
-      </span>
-      <a href="/" role="link">
-        <strong>Restaurant Reviews</strong>
-      </a>
-      <span aria-hidden="true" class="footer-br">
-        <br>
-      </span> All Rights Reserved.
-    </div>
-  </footer>
-  <!-- End footer -->
-  <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
-    crossorigin=""></script>
-  <!-- Beginning scripts -->
+        <div class="reviews-form" id="reviews-form">
+          <!-- <form method="POST" action="http://localhost:1337/reviews/"> -->
+
+            <div>
+              <div class="reviews-form-name">
+                <label>
+                  Name :<br /> <input id="rating-name" class="reviews-form-fields" required type="text" name="name">
+                </label>
+              </div>
+
+              <div class="reviews-form-rating">
+                Rating : <br />
+                <div class="rating" id='rating' name="rating">   
+                  <li class="fontawesome-star-empty rating-option" value="1" id='rating-star-1'></li>
+                  <li class="fontawesome-star-empty rating-option" value="2" id='rating-star-2'></li>
+                  <li class="fontawesome-star-empty rating-option" value="3" id='rating-star-3'></li>
+                  <li class="fontawesome-star-empty rating-option" value="4" id='rating-star-4'></li>
+                  <li class="fontawesome-star-empty rating-option" value="5" id='rating-star-5'></li>
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <label>
+              Comments: <br /> <textarea id="rating-comment" name="comment" class="reviews-form-comment reviews-form-fields" maxlength="250"
+                placeholder="Your Comments here"></textarea>
+            </label>
+            <br>
+
+            <button class="reviews-submit" id="reviews-submit">Submit</button>
+          <!-- </form> -->
+        </div>
+      </section>
+      <!-- End reviews -->
+    </main>
+    <!-- End main -->
+
+    <!-- Beginning footer -->
+    <footer id="footer">
+      <div id="footer-content">
+        Copyright (c) 2017
+        <span aria-hidden="true" class="footer-br">
+          <br>
+        </span>
+        <a href="/" role="link">
+          <strong>Restaurant Reviews</strong>
+        </a>
+        <span aria-hidden="true" class="footer-br">
+          <br>
+        </span> All Rights Reserved.
+      </div>
+    </footer>
+    <!-- End footer -->
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw=="
+      crossorigin=""></script>
+    <!-- Beginning scripts -->
 
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/a11yhelper.js"></script>
