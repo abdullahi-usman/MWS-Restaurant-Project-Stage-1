@@ -122,8 +122,15 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
-  // fill reviews
-  fillReviewsHTML();
+  if (!self.restaurant.reviews) {
+    DBHelper.fetchReviews(self.restaurant, (reviews) => {
+      self.restaurant.reviews = reviews;
+      
+    })
+  } else {
+    // fill reviews
+    fillReviewsHTML();
+  }
 }
 
 /**
