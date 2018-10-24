@@ -9,6 +9,7 @@ var markers = []
  */
 document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
+  updateRestaurants();
   fetchNeighborhoods();
   fetchCuisines();
   registerServiceWorker();
@@ -90,7 +91,6 @@ initMap = () => {
 
   A11yHelper.putA11yToMap(self.newMap)
 
-  updateRestaurants();
 }
 /* window.initMap = () => {
   let loc = {
