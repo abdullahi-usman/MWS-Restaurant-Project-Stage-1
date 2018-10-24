@@ -66,32 +66,32 @@
         <div class="reviews-form" id="reviews-form">
           <!-- <form method="POST" action="http://localhost:1337/reviews/"> -->
 
-            <div>
-              <div class="reviews-form-name">
-                <label>
-                  Name :<br /> <input id="rating-name" class="reviews-form-fields" required type="text" name="name">
-                </label>
-              </div>
-
-              <div class="reviews-form-rating">
-                Rating : <br />
-                <div class="rating" id='rating' name="rating">   
-                  <li class="fontawesome-star-empty rating-option" value="1" id='rating-star-1'></li>
-                  <li class="fontawesome-star-empty rating-option" value="2" id='rating-star-2'></li>
-                  <li class="fontawesome-star-empty rating-option" value="3" id='rating-star-3'></li>
-                  <li class="fontawesome-star-empty rating-option" value="4" id='rating-star-4'></li>
-                  <li class="fontawesome-star-empty rating-option" value="5" id='rating-star-5'></li>
-                </div>
-              </div>
+          <div>
+            <div class="reviews-form-name">
+              <label>
+                Name :<br /> <input id="rating-name" class="reviews-form-fields" required type="text" name="name">
+              </label>
             </div>
 
-            <br>
+            <div class="reviews-form-rating">
+              Rating : <br />
+              <div class="rating" id='rating' name="rating">
+                <li class="fontawesome-star-empty rating-option" value="1" id='rating-star-1'></li>
+                <li class="fontawesome-star-empty rating-option" value="2" id='rating-star-2'></li>
+                <li class="fontawesome-star-empty rating-option" value="3" id='rating-star-3'></li>
+                <li class="fontawesome-star-empty rating-option" value="4" id='rating-star-4'></li>
+                <li class="fontawesome-star-empty rating-option" value="5" id='rating-star-5'></li>
+              </div>
+            </div>
+          </div>
 
-            <label>
-              Comments: <br /> <textarea id="rating-comment" name="comment" class="reviews-form-comment reviews-form-fields" maxlength="250"
-                placeholder="Your Comments here"></textarea>
-            </label>
-            <br>
+          <br>
+
+          <label>
+            Comments: <br /> <textarea id="rating-comment" name="comment" class="reviews-form-comment reviews-form-fields"
+              maxlength="250" placeholder="Your Comments here"></textarea>
+          </label>
+          <br>
 
           <div aria-readonly="true" role="button" class="reviews-submit" id="reviews-submit">Submit</div>
           <!-- </form> -->
