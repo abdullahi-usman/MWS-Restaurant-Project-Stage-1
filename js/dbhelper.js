@@ -60,6 +60,15 @@ class DBHelper {
 
   }
 
+  static updateDb(restaurant) {
+    this.DB.then(db => {
+
+      const store = db.transaction('restaurants', 'readwrite').objectStore('restaurants')
+      store.put(restaurant, restaurant.id);
+      return store.complete;
+    })
+  }
+
   /**
    * Fetch a restaurant by its ID.
    */
