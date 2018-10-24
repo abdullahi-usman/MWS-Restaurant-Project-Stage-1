@@ -288,6 +288,56 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
 
   toggleFavIcon(restaurant.is_favorite)
 }
+
+initRating = (restaurant = self.restaurant) => {
+
+  self.rating_form = new FormData()
+  self.rating_form.append('restaurant_id', parseInt(restaurant.id, 10))
+
+  ratingOnClickListener = (event) => {
+    const target = event.currentTarget;
+    self.rating_form.set('rating', parseInt(target.value, 10))
+
+
+    for (let i = 5; i > 0; i--) {
+      const ratingBtn = document.getElementById(`rating-star-${i}`)
+
+      if (i <= target.value) {
+        ratingBtn.classList.replace('fontawesome-star-empty', 'fontawesome-star')
+      } else {
+        ratingBtn.classList.replace('fontawesome-star', 'fontawesome-star-empty')
+      }
+
+    }
+  };
+
+  for (let i = 1; i <= 5; i++) {
+    const ratingBtn = document.getElementById(`rating-star-${i}`)
+    ratingBtn.addEventListener('click', ratingOnClickListener)
+  }
+
+  const submitBtn = document.getElementById('reviews-submit');
+  submitBtn.addEventListener('click', () => {
+
+    const rating_name = document.getElementById('rating-name');
+    self.rating_form.set('name', rating_name.value);
+
+    const rating_comment = document.getElementById('rating-comment');
+    self.rating_form.set('comments', rating_comment.value);
+
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', 'http://localhost:1337/reviews/', true);
+
+    xhr.onload = function () {
+
+      if (this.status == 200 || this.status == 201) {
+        const review = JSON.parse(this.responseText);
+        addReviews(review);
+      }
+    }
+
+    xhr.send(self.rating_form);
+  })
 }
 
 /**
