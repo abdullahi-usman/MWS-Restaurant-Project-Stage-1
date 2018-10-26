@@ -126,7 +126,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   if (!self.restaurant.reviews) {
     DBHelper.fetchReviews(self.restaurant, (reviews) => {
       self.restaurant.reviews = reviews;
-      
+      fillReviewsHTML();
     })
   } else {
     // fill reviews
@@ -179,25 +179,26 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   
   self.reviews_container = document.getElementById('reviews-container');
 
-  const div = document.createElement('div');
-  div.setAttribute('id', 'reviews-details');
+  self.reviews_details = document.createElement('div');
+  self.reviews_details.setAttribute('id', 'reviews-details');
 
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
-  div.appendChild(title);
-
+  self.reviews_details.appendChild(title);
+  
   if (!reviews) {
     const noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
-    div.appendChild(noReviews);
-    self.reviews_container.insertBefore(div, self.reviews_container.firstChild)
+    self.reviews_details.appendChild(noReviews);
     return;
   }
 
   addReviews(reviews);
+  self.reviews_container.insertBefore(self.reviews_details, document.getElementById('reviews-form'));
 }
 
 addReviews = (...reviews) => {
+  
   
   self.ul = document.getElementById('reviews-list');
   ul.setAttribute('aria-label', 'Customers Reviews');
@@ -219,8 +220,8 @@ addReviews = (...reviews) => {
     ul.setAttribute('tabIndex', '-1');
   })
 
-  div.appendChild(ul);
-  self.reviews_container.appendChild(div);
+  self.reviews_details.appendChild(ul);
+  self.reviews_container.appendChild(self.reviews_details);
 }
 
 /**
@@ -235,8 +236,6 @@ createReviewHTML = (review) => {
   const date = document.createElement('p');
   date.innerHTML = review.date || new Date(review.createdAt).toGMTString()
   li.appendChild(date);
-
-  
 
   const rating = document.createElement('p');
   rating.innerHTML = `Rating: ${review.rating}`;
