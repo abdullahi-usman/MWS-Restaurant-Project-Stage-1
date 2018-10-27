@@ -205,7 +205,11 @@ addReviews = (...reviews) => {
   }
 
   for (let review of reviews) {
-    ul.appendChild(createReviewHTML(review));
+    if (ul.children.length > 0) {
+      ul.insertBefore(createReviewHTML(review), ul.firstChild)
+    } else {
+      ul.appendChild(createReviewHTML(review));
+    }
   }
 
   ul.addEventListener('focus', focusevent => {
@@ -340,18 +344,13 @@ initRating = (restaurant = self.restaurant) => {
     const rating_comment = document.getElementById('rating-comment');
     self.rating_form.set('comments', rating_comment.value);
 
-    const xhr = new XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:1337/reviews/', true);
-
-    xhr.onload = function () {
-
-      if (this.status == 200 || this.status == 201) {
-        const review = JSON.parse(this.responseText);
-        addReviews(review);
+    DBHelper.addReview(self.restaurant, self.rating_form, (review) => {
+      if (review) {
+        this.addReviews(review)
       }
-    }
 
-    xhr.send(self.rating_form);
+    })
+
   })
 }
 
