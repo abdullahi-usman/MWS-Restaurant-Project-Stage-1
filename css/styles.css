@@ -537,7 +537,7 @@ div.leaflet-control-attribution .leaflet-control {
 .reviews-submit {
   float: right;
   background-color: darkblue;
-  box-shadow: 0px 8px 8px rgba(0, 0, 0.2);
+  box-shadow: 1px 8px 8px rgba(0, 0, 0.2);
   padding-top: 10px;
   padding-bottom: 10px;
   min-width: 60px;
@@ -546,7 +546,5 @@ div.leaflet-control-attribution .leaflet-control {
 }
 
 .reviews-submit:active {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0.2);
-  padding-top: 8px;
-  padding-bottom: 8px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0.2);
 }
