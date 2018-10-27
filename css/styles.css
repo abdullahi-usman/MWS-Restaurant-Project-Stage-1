@@ -420,7 +420,7 @@ section#restaurant-container {
   width: 100%;
 }
 
-#reviews-list li {
+#reviews-list>li {
   background-color: #fff;
   border: 2px solid #f3f3f3;
   display: block;
@@ -438,6 +438,14 @@ section#restaurant-container {
 
 #restaurant-hours td {
   color: #666;
+}
+
+.reviews-delete {
+  position: absolute;
+  padding: 15px;
+  right: 0;
+  margin-top: 5px;
+  margin-right: 10px;
 }
 
 @media screen and (max-width: 900px) {

@@ -193,7 +193,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
     return;
   }
 
-  addReviews(reviews);
+  addReviews(...reviews);
   self.reviews_container.insertBefore(self.reviews_details, document.getElementById('reviews-form'));
 }
 
@@ -229,6 +229,17 @@ addReviews = (...reviews) => {
  */
 createReviewHTML = (review) => {
   const li = document.createElement('li');
+
+  const deleteIcon = document.createElement('li');
+  deleteIcon.setAttribute('class', 'reviews-delete');
+
+  deleteIcon.addEventListener('click', () => {
+    DBHelper.removeReview(self.restaurant, review);
+    self.ul.removeChild(li);
+  })
+
+  li.appendChild(deleteIcon);
+
   const name = document.createElement('p');
   name.innerHTML = review.name;
   li.appendChild(name);

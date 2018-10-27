@@ -69,6 +69,26 @@ class DBHelper {
     })
   }
 
+  static removeReview(restaurant, old_review) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('DELETE', `http://localhost:1337/reviews/${old_review.id}`);
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        for (let review of restaurant.reviews) {
+          if (review.id == old_review.id) {
+            restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
+          }
+        }
+
+        this.updateDb(restaurant)
+      } else {
+
+      }
+    }
+
+    xhr.send();
+  }
+
   static toggleFavorite(restaurant, callback) {
     fetch(`${this.DATABASE_URL}/${restaurant.id}/?is_favorite=${restaurant.is_favorite === "true" || restaurant.is_favorite === true ? 'false' : 'true'}`, {
       method: 'PUT'
