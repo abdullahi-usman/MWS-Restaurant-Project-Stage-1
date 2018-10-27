@@ -69,6 +69,31 @@ class DBHelper {
     })
   }
 
+  static addReview(restaurant, form, callback) {
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', 'http://localhost:1337/reviews/', true);
+
+    xhr.onload = function () {
+
+      if (this.status == 200 || this.status == 201) {
+        const review = JSON.parse(this.responseText);
+
+        if (!restaurant.reviews) {
+          restaurant.reviews = []
+        }
+
+        restaurant.reviews.push(review);
+        DBHelper.updateDb(restaurant);
+
+        callback(review);
+      } else {
+        callback(null);
+      }
+    }
+
+    xhr.send(form);
+  }
+
   static removeReview(restaurant, old_review) {
     const xhr = new XMLHttpRequest();
     xhr.open('DELETE', `http://localhost:1337/reviews/${old_review.id}`);
