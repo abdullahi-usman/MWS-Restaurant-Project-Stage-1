@@ -176,7 +176,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  * Create all reviews HTML and add them to the webpage.
  */
 fillReviewsHTML = (reviews = self.restaurant.reviews) => {
-  
+
   self.reviews_container = document.getElementById('reviews-container');
 
   self.reviews_details = document.createElement('div');
@@ -185,7 +185,7 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
   self.reviews_details.appendChild(title);
-  
+
   if (!reviews) {
     const noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
@@ -198,10 +198,11 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 }
 
 addReviews = (...reviews) => {
-  
-  
-  self.ul = document.getElementById('reviews-list');
-  ul.setAttribute('aria-label', 'Customers Reviews');
+
+  if (!self.ul) {
+    self.ul = document.getElementById('reviews-list');
+    ul.setAttribute('aria-label', 'Customers Reviews');
+  }
 
   for (let review of reviews) {
     ul.appendChild(createReviewHTML(review));
@@ -220,8 +221,10 @@ addReviews = (...reviews) => {
     ul.setAttribute('tabIndex', '-1');
   })
 
-  self.reviews_details.appendChild(ul);
-  self.reviews_container.appendChild(self.reviews_details);
+  if (!self.reviews_details.hasChildNodes) {
+    self.reviews_details.appendChild(ul);
+    self.reviews_container.appendChild(self.reviews_details);
+  }
 }
 
 /**
@@ -258,7 +261,7 @@ createReviewHTML = (review) => {
 
   li.setAttribute('tabIndex', '0');
   li.setAttribute('aria-label', `Review from ${review.name} on ${review.date} with ${review.rating} rating. ${review.comments}`)
-  
+
   return li;
 }
 
