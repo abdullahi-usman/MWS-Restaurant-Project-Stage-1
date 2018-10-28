@@ -238,7 +238,7 @@ createReviewHTML = (review) => {
   const li = document.createElement('li');
 
   const deleteIcon = document.createElement('li');
-  deleteIcon.setAttribute('class', 'reviews-delete');
+  deleteIcon.setAttribute('class', 'fontawesome-trash reviews-delete');
 
   deleteIcon.addEventListener('click', () => {
     DBHelper.removeReview(self.restaurant, review);
