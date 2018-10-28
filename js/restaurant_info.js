@@ -237,7 +237,7 @@ addReviews = (...reviews) => {
 createReviewHTML = (review) => {
   const li = document.createElement('li');
 
-  const deleteIcon = document.createElement('li');
+  const deleteIcon = document.createElement('span');
   deleteIcon.setAttribute('class', 'fontawesome-trash reviews-delete');
 
   deleteIcon.addEventListener('click', () => {
