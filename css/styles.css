@@ -528,6 +528,8 @@ div.leaflet-control-attribution .leaflet-control {
 
 .rating {
   list-style: none;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .reviews-form-comment {
