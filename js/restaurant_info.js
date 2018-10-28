@@ -179,22 +179,18 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 
   self.reviews_container = document.getElementById('reviews-container');
 
-  self.reviews_details = document.createElement('div');
-  self.reviews_details.setAttribute('id', 'reviews-details');
-
-  const title = document.createElement('h2');
-  title.innerHTML = 'Reviews';
-  self.reviews_details.appendChild(title);
+  self.reviews_details = document.getElementById('reviews-details')
 
   if (!reviews) {
-    const noReviews = document.createElement('p');
+    self.noReviews = document.createElement('p');
     noReviews.innerHTML = 'No reviews yet!';
     self.reviews_details.appendChild(noReviews);
     return;
+  } else if (self.noReviews) {
+    self.reviews_details.removeChild(self.noReviews);
   }
 
   addReviews(...reviews);
-  self.reviews_container.insertBefore(self.reviews_details, document.getElementById('reviews-form'));
 }
 
 addReviews = (...reviews) => {
@@ -227,7 +223,6 @@ addReviews = (...reviews) => {
 
   if (!self.reviews_details.hasChildNodes) {
     self.reviews_details.appendChild(ul);
-    self.reviews_container.appendChild(self.reviews_details);
   }
 }
 
