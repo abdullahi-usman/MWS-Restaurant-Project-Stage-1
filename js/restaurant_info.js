@@ -114,7 +114,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  image.setAttribute('alt', `image of ${restaurant.name} restaurant from ${restaurant.neighboorhood}`);
+  image.setAttribute('alt', `${restaurant.name} restaurant, ${getTypeTextForRestaurant(restaurant.id)}`);
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
@@ -363,4 +363,31 @@ getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+getTypeTextForRestaurant = (id) => {
+  switch (id) {
+    case 1:
+      return "Classical indoor restaurant"
+    case 2:
+      return "Brooklyn finest restaurant"
+    case 3:
+      return "Manhattan open kitchen restaurant"
+    case 4:
+      return "Snack and desert restaurant"
+    case 5:
+      return "Chef's restaurant"
+    case 6:
+      return "Berbecue restaurant"
+    case 7:
+      return "Super burger restaurant"
+    case 8:
+      return "Dutchess restaurant"
+    case 9:
+      return "Kings and Queens restaurants"
+    case 10:
+      return "Flying Dragons restaurants"
+    default:
+      return "Restaurant for all"
+  }
 }
