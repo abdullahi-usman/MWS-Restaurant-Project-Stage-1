@@ -267,9 +267,9 @@ createReviewHTML = (review) => {
 toggleFavIcon = () => {
   const fav = document.getElementById('fav-icon');
   if (self.restaurant.is_favorite === "true" || self.restaurant.is_favorite === true) {
-    fav.setAttribute('class', 'fontawesome-star')
+    fav.setAttribute('class', 'fontawesome-heart')
   } else {
-    fav.setAttribute('class', 'fontawesome-star-empty')
+    fav.setAttribute('class', 'fontawesome-heart-empty')
   }
 }
 
@@ -294,7 +294,7 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
   const fav = document.createElement('li');
   fav.setAttribute('id', 'fav-icon');
   fav.setAttribute('style', 'float: right; font-size: 1.2em;');
-  fav.setAttribute('class', 'fontawesome-star-empty');
+  fav.setAttribute('class', 'fontawesome-heart-empty');
 
   fav.addEventListener('click', favIconClickListener);
 
