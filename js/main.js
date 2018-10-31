@@ -157,6 +157,22 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   addMarkersToMap();
 }
 
+onImageIntersectionListener = (images) => {
+  images.forEach(image => {
+    if (image.isIntersecting) {
+      self.imageObserver.unobserve(image.target)
+      const sources = image.target.querySelectorAll('.lazy-img')
+      sources.forEach(source => {
+        if (source.localName === 'img') {
+          source.setAttribute('src', source.getAttribute('data-src'));
+        } else if (source.localName === 'source') {
+          source.setAttribute('srcset', source.getAttribute('data-srcset'));
+        }
+      })
+    }
+  })
+}
+
 /**
  * Create restaurant HTML.
  */
@@ -168,20 +184,38 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.alt = restaurant.name
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const picture = document.createElement('picture');
   const source_large = document.createElement('source');
+  source_large.setAttribute('class', 'lazy-img');
   source_large.setAttribute('media', '(min-width: 1600px)');
-  source_large.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'large'));
 
   const source_medium = document.createElement('source');
+  source_medium.setAttribute('class', 'lazy-img');
   source_medium.setAttribute('media', '(min-width: 800px)');
-  source_medium.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'medium'));
 
   const source_small = document.createElement('source');
+  source_small.setAttribute('class', 'lazy-img');
   source_small.setAttribute('media', '(max-width: 799px)')
-  source_small.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'small'));
+
+  if ('IntersectionObserver' in window && !self.imageObserver) {
+    image.dataset.src = DBHelper.imageUrlForRestaurant(restaurant);
+    source_large.setAttribute('data-srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'large'));
+    source_medium.setAttribute('data-srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'medium'));
+    source_small.setAttribute('data-srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'small'));
+
+    self.imageObserver = new IntersectionObserver(onImageIntersectionListener, {
+      rootMargin: '50px 0px',
+      threshold: 0.01
+    })
+
+    self.imageObserver.observe(picture)
+  } else {
+    image.src = DBHelper.imageUrlForRestaurant(restaurant);
+    source_large.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'large'));
+    source_medium.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'medium'));
+    source_small.setAttribute('srcset', DBHelper.sourceUrlsForRestaurant(restaurant, 'small'));
+  }
 
   picture.append(source_small);
   picture.append(source_large);
