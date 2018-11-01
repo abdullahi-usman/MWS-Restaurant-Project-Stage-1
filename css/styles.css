@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* fonts      */
-@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+@import url(https://weloveiconfonts.com/api/?family=fontawesome);
 
 /* fontawesome */
 [class*="fontawesome-"]:before {
