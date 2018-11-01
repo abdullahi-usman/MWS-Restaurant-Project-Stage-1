@@ -193,6 +193,40 @@ nav h1 a {
   background-color: #ccc;
 }
 
+.no-map-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #524a43;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.show-map-btn {
+  color: white;
+  border: 1px solid #203f1f;
+  border-radius: 3em;
+  background-color: #203f1f;
+  padding: 12px 48px 12px;
+  margin: auto;
+  text-align: center;
+  width: 25%;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  align-content: center;
+  display: grid;
+}
+
+.show-map-btn:active,
+.show-map-btn:hover,
+.show-map-btn:focus {
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+}
+
+.show-map-btn:active {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.2);
+  transform: translateZ(-50)
+}
+
 /* ====================== Restaurant Filtering ====================== */
 .filter-options {
   width: 100%;

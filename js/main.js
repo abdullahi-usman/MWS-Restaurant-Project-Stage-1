@@ -74,22 +74,43 @@ fillCuisinesHTML = (cuisines = self.cuisines) => {
  * Initialize leaflet map, called from HTML.
  */
 initMap = () => {
-  self.newMap = L.map('map', {
-    center: [40.722216, -73.987501],
-    zoom: 12,
-    scrollWheelZoom: false
-  });
+  const map = document.getElementById('map');
+  const noMapContainer = document.createElement('div');
+  noMapContainer.setAttribute('class', 'no-map-container');
 
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-    mapboxToken: 'pk.eyJ1IjoiZGFoaGFtIiwiYSI6ImNqa2Y0aTEwNDA0eWwzdm56ZGl4cHZxYncifQ.pFJ9P_zH7VpiMJvRP4M4BQ',
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox.streets'
-  }).addTo(newMap);
+  const showMapBtn = document.createElement('a');
+  showMapBtn.setAttribute('class', 'show-map-btn')
+  showMapBtn.setAttribute('role', 'button');
+  showMapBtn.setAttribute('aria-label', 'Click to restaurants on map');
+  showMapBtn.setAttribute('href', '#');
 
-  A11yHelper.putA11yToMap(self.newMap)
+  showMapBtn.innerText = 'Show Map'
+
+  noMapContainer.appendChild(showMapBtn);
+
+  map.appendChild(noMapContainer);
+
+  showMapBtn.addEventListener('click', () => {
+
+    self.newMap = L.map('map', {
+      center: [40.722216, -73.987501],
+      zoom: 12,
+      scrollWheelZoom: false
+    });
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
+      mapboxToken: 'pk.eyJ1IjoiZGFoaGFtIiwiYSI6ImNqa2Y0aTEwNDA0eWwzdm56ZGl4cHZxYncifQ.pFJ9P_zH7VpiMJvRP4M4BQ',
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox.streets'
+    }).addTo(newMap);
+
+    A11yHelper.putA11yToMap(self.newMap)
+    addMarkersToMap();
+    map.removeChild(noMapContainer);
+  })
 
 }
 /* window.initMap = () => {
@@ -154,7 +175,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
   });
-  addMarkersToMap();
+
 }
 
 onImageIntersectionListener = (images) => {
