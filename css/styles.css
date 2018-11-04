@@ -203,6 +203,7 @@ nav h1 a {
   background-color: #524a43;
   flex-wrap: wrap;
   flex-direction: column;
+  background-image: radial-gradient(circle, #e8ded4, #524a43)
 }
 
 .show-map-btn {
