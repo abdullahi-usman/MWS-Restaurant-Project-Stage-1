@@ -84,13 +84,29 @@ initMap = () => {
   showMapBtn.setAttribute('aria-label', 'Click to restaurants on map');
   showMapBtn.setAttribute('href', '#');
 
-  showMapBtn.innerText = 'Show Map'
+  const div = document.createElement('div');
+  div.setAttribute('style', 'padding-top: 15px; padding-bottom: 15px;');
+
+  const loadingBar = document.createElement('span');
+  loadingBar.setAttribute('class', 'fontawesome-spinner loading-map-bar');
+  loadingBar.setAttribute('style', 'display: none');
+  loadingBar.innerText = 'Hello'
+
+  div.appendChild(loadingBar);
+
+  const label = document.createElement('span');
+  label.innerText = 'SHOW MAP'
+
+  div.appendChild(label);
+
+  showMapBtn.appendChild(div);
 
   noMapContainer.appendChild(showMapBtn);
 
   map.appendChild(noMapContainer);
 
   showMapBtn.addEventListener('click', () => {
+    loadingBar.setAttribute('style', 'display: inherit');
 
     self.newMap = L.map('map', {
       center: [40.722216, -73.987501],
