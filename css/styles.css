@@ -215,7 +215,7 @@ nav h1 a {
   margin: auto;
   text-align: center;
   width: 25%;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
   align-content: center;
 }
 
