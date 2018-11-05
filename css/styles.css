@@ -606,6 +606,7 @@ div.leaflet-control-attribution .leaflet-control {
   min-width: 60px;
   text-align: center;
   border-radius: 5px;
+  color: white;
 }
 
 .reviews-submit:active {
