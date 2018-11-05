@@ -12,20 +12,56 @@ document.addEventListener('DOMContentLoaded', (event) => {
  * Initialize leaflet map
  */
 initMap = (restaurant) => {
-  self.newMap = L.map('map', {
-    center: [restaurant.latlng.lat, restaurant.latlng.lng],
-    zoom: 16,
-    scrollWheelZoom: false
-  });
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-    mapboxToken: 'pk.eyJ1IjoiZGFoaGFtIiwiYSI6ImNqa2Y0aTEwNDA0eWwzdm56ZGl4cHZxYncifQ.pFJ9P_zH7VpiMJvRP4M4BQ',
-    maxZoom: 18,
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    id: 'mapbox.streets'
-  }).addTo(newMap);
-  A11yHelper.putA11yToMap(self.newMap);
+
+  const map = document.getElementById('map');
+  const noMapContainer = document.createElement('div');
+  noMapContainer.setAttribute('class', 'no-map-container');
+
+  const showMapBtn = document.createElement('a');
+  showMapBtn.setAttribute('class', 'show-map-btn')
+  showMapBtn.setAttribute('role', 'button');
+  showMapBtn.setAttribute('aria-label', 'Click to restaurants on map');
+  showMapBtn.setAttribute('href', '#');
+
+  const div = document.createElement('div');
+  div.setAttribute('style', 'padding-top: 15px; padding-bottom: 15px;');
+
+  const loadingBar = document.createElement('span');
+  loadingBar.setAttribute('class', 'fontawesome-spinner loading-map-bar');
+  loadingBar.setAttribute('style', 'display: none');
+  loadingBar.innerText = 'Hello'
+
+  div.appendChild(loadingBar);
+
+  const label = document.createElement('span');
+  label.innerText = 'SHOW MAP'
+
+  div.appendChild(label);
+
+  showMapBtn.appendChild(div);
+
+  noMapContainer.appendChild(showMapBtn);
+
+  map.appendChild(noMapContainer);
+
+  showMapBtn.addEventListener('click', () => {
+    self.newMap = L.map('map', {
+      center: [restaurant.latlng.lat, restaurant.latlng.lng],
+      zoom: 16,
+      scrollWheelZoom: false
+    });
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
+      mapboxToken: 'pk.eyJ1IjoiZGFoaGFtIiwiYSI6ImNqa2Y0aTEwNDA0eWwzdm56ZGl4cHZxYncifQ.pFJ9P_zH7VpiMJvRP4M4BQ',
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: 'mapbox.streets'
+    }).addTo(newMap);
+    A11yHelper.putA11yToMap(self.newMap);
+    DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
+  })
+
 }
 
 
@@ -34,9 +70,9 @@ init = () => {
     if (error) { // Got an error!
       console.error(error);
     } else {
-      //initMap(restaurant);
+      initMap(restaurant);
       fillBreadcrumb();
-      //DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
+
       initRating()
     }
   });
