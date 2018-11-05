@@ -489,6 +489,7 @@ section#restaurant-container {
   padding: 0 2.5% 20px;
   position: relative;
   width: 90%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
 }
 
 #reviews-list li p {
