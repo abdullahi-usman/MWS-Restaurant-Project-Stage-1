@@ -60,6 +60,7 @@ initMap = (restaurant) => {
     }).addTo(newMap);
     A11yHelper.putA11yToMap(self.newMap);
     DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
+    map.removeChild(noMapContainer);
   })
 
 }
