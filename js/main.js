@@ -88,9 +88,8 @@ initMap = () => {
   div.setAttribute('style', 'padding-top: 15px; padding-bottom: 15px;');
 
   const loadingBar = document.createElement('span');
-  loadingBar.setAttribute('class', 'fontawesome-spinner loading-map-bar');
+  loadingBar.setAttribute('class', 'fa fa-spinner fa-spin loading-map-bar');
   loadingBar.setAttribute('style', 'display: none');
-  loadingBar.innerText = 'Hello'
 
   div.appendChild(loadingBar);
 

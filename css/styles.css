@@ -1,12 +1,8 @@
 @charset "utf-8";
 
 /* fonts      */
-@import url(https://weloveiconfonts.com/api/?family=fontawesome);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
 
-/* fontawesome */
-[class*="fontawesome-"]:before {
-  font-family: 'FontAwesome', sans-serif;
-}
 
 
 /* CSS Document */
@@ -230,23 +226,9 @@ nav h1 a {
   transform: translateZ(-50)
 }
 
-@keyframes loading-map-bar {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 .loading-map-bar {
-  padding-right: 5px;
-  display: inline-block;
-  animation-duration: 1000ms;
-  animation-iteration-count: infinite;
-  animation-name: loading-map-bar;
-  animation-timing-function: linear;
+  margin-right: 5px;
   will-change: transform;
   transform: translateZ(0);
 }

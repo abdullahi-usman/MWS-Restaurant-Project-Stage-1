@@ -27,9 +27,8 @@ initMap = (restaurant) => {
   div.setAttribute('style', 'padding-top: 15px; padding-bottom: 15px;');
 
   const loadingBar = document.createElement('span');
-  loadingBar.setAttribute('class', 'fontawesome-spinner loading-map-bar');
+  loadingBar.setAttribute('class', 'fa fa-spinner fa-spin loading-map-bar');
   loadingBar.setAttribute('style', 'display: none');
-  loadingBar.innerText = 'Hello'
 
   div.appendChild(loadingBar);
 
@@ -270,7 +269,7 @@ createReviewHTML = (review) => {
   const li = document.createElement('li');
 
   const deleteIcon = document.createElement('span');
-  deleteIcon.setAttribute('class', 'fontawesome-trash reviews-delete');
+  deleteIcon.setAttribute('class', 'fa fa-trash reviews-delete');
 
   deleteIcon.addEventListener('click', () => {
     DBHelper.removeReview(self.restaurant, review);
@@ -304,9 +303,9 @@ createReviewHTML = (review) => {
 toggleFavIcon = () => {
   const fav = document.getElementById('fav-icon');
   if (self.restaurant.is_favorite === "true" || self.restaurant.is_favorite === true) {
-    fav.setAttribute('class', 'fontawesome-heart')
+    fav.setAttribute('class', 'fa fa-heart')
   } else {
-    fav.setAttribute('class', 'fontawesome-heart-empty')
+    fav.setAttribute('class', 'fa fa-heart-o')
   }
 }
 
@@ -331,7 +330,7 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
   const fav = document.createElement('li');
   fav.setAttribute('id', 'fav-icon');
   fav.setAttribute('style', 'float: right; font-size: 1.2em;');
-  fav.setAttribute('class', 'fontawesome-heart-empty');
+  fav.setAttribute('class', 'fa fa-heart-o');
 
   fav.addEventListener('click', favIconClickListener);
 
@@ -354,9 +353,9 @@ initRating = (restaurant = self.restaurant) => {
       const ratingBtn = document.getElementById(`rating-star-${i}`)
 
       if (i <= target.value) {
-        ratingBtn.classList.replace('fontawesome-star-empty', 'fontawesome-star')
+        ratingBtn.classList.replace('fa-star-o', 'fa-star')
       } else {
-        ratingBtn.classList.replace('fontawesome-star', 'fontawesome-star-empty')
+        ratingBtn.classList.replace('fa-star', 'fa-star-o')
       }
 
     }
