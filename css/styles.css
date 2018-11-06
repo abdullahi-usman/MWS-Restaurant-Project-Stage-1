@@ -411,7 +411,7 @@ section#restaurant-container {
 }
 
 #restaurant-name,
-#reviews-details > h4 {
+#reviews-details>h4 {
   color: #f18200;
   font-family: Arial, sans-serif;
   font-size: 20pt;
