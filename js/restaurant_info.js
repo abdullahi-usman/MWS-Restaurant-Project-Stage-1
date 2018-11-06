@@ -57,9 +57,14 @@ initMap = (restaurant) => {
         'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       id: 'mapbox.streets'
     }).addTo(newMap);
+
+    self.newMap.addEventListener('layeradd', function f() {
+      map.removeChild(noMapContainer);
+      self.newMap.removeEventListener('layeradd', f)
+    })
+
     A11yHelper.putA11yToMap(self.newMap);
     DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
-    map.removeChild(noMapContainer);
   })
 
 }

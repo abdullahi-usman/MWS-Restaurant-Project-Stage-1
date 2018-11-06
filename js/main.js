@@ -122,9 +122,13 @@ initMap = () => {
       id: 'mapbox.streets'
     }).addTo(newMap);
 
+    self.newMap.addEventListener('layeradd', function f() {
+      map.removeChild(noMapContainer);
+      self.newMap.removeEventListener('layeradd', f)
+    })
+
     A11yHelper.putA11yToMap(self.newMap)
     addMarkersToMap();
-    map.removeChild(noMapContainer);
   })
 
 }
