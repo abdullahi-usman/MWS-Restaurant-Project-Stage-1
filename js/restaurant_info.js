@@ -267,6 +267,11 @@ addReviews = (...reviews) => {
   }
 }
 
+deleteReview = (review) => {
+  DBHelper.removeReview(self.restaurant, review);
+  self.ul.removeChild(li);
+}
+
 /**
  * Create review HTML and add it to the webpage.
  */
@@ -277,8 +282,7 @@ createReviewHTML = (review) => {
   deleteIcon.setAttribute('class', 'fa fa-trash reviews-delete');
 
   deleteIcon.addEventListener('click', () => {
-    DBHelper.removeReview(self.restaurant, review);
-    self.ul.removeChild(li);
+    deleteReview(review);
   })
 
   li.appendChild(deleteIcon);
