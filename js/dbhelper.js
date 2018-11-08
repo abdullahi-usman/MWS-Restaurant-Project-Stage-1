@@ -143,8 +143,14 @@ class DBHelper {
   }
 
 
+  static retrySendCacheReviews(restaurant) {
+    for (let review of restaurant.reviews) {
+      if (review.is_cache) {
+        this.retrySendCacheReview(restaurant, review, null);
       }
     }
+  }
+
 
     xhr.send();
   }
