@@ -73,20 +73,29 @@ class DBHelper {
     const xhr = new XMLHttpRequest()
     xhr.open('POST', 'http://localhost:1337/reviews/', true);
 
-    xhr.onload = function () {
+    const result = {}
+    result.ok = false
+    result.review = review
 
-      const result = {}
+    xhr.onreadystatechange = function () {
+
       if (this.status == 200 || this.status == 201) {
         result.ok = true
         result.review = JSON.parse(this.responseText);
-      } else {
-        result.ok = false
-        result.review = null
       }
-      callback(result);
+
+      if (callback) {
+        callback(result);
+      }
+
     }
 
-    xhr.send(JSON.stringify(review));
+    try {
+      xhr.send(JSON.stringify(review));
+
+    } catch (e) {
+      callback(result)
+    }
   }
 
   static addReview(restaurant, review, callback) {
@@ -94,6 +103,11 @@ class DBHelper {
     this.sendReview(restaurant.id, review, response => {
       if (!restaurant.reviews) {
         restaurant.reviews = []
+      }
+
+      if (!response.ok) {
+        response.review.is_cache = true;
+        response.review.cache_id = Date.now()
       }
 
       restaurant.reviews.push(response.review);
