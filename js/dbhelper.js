@@ -152,7 +152,29 @@ class DBHelper {
   }
 
 
-    xhr.send();
+  static removeReview(restaurant, old_review) {
+    if (old_review.is_cache || !old_review.id) {
+      restaurant.reviews.splice(restaurant.reviews.indexOf(old_review), 1);
+      this.updateDb(restaurant);
+    } else {
+      const xhr = new XMLHttpRequest();
+      xhr.open('DELETE', `http://localhost:1337/reviews/${old_review.id}`);
+      xhr.onload = () => {
+        if (xhr.status === 200 || xhr.status == 404) {
+          for (let review of restaurant.reviews) {
+            if (review.id == old_review.id) {
+              restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
+            }
+          }
+
+          this.updateDb(restaurant)
+        } else {
+
+        }
+      }
+
+      xhr.send();
+    }
   }
 
   static toggleFavorite(restaurant, callback) {
