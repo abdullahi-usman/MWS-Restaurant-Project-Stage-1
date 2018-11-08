@@ -118,19 +118,30 @@ class DBHelper {
 
   }
 
-  static removeReview(restaurant, old_review) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('DELETE', `http://localhost:1337/reviews/${old_review.id}`);
-    xhr.onload = () => {
-      if (xhr.status === 200) {
-        for (let review of restaurant.reviews) {
-          if (review.id == old_review.id) {
-            restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
-          }
-        }
+  static retrySendCacheReview(restaurant, review, callback) {
 
-        this.updateDb(restaurant)
+    const cache_id = review.cache_id;
+
+    delete review.is_cache;
+    delete review.cache_id
+
+    this.sendReview(restaurant.id, review, response => {
+
+      if (response.ok) {
+        restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
+        restaurant.reviews.push(response.review);
+        this.updateDb(restaurant);
       } else {
+        response.review.is_cache = true;
+        response.review.cache_id = cache_id;
+      }
+
+      if (callback) {
+        callback(response);
+      }
+    })
+  }
+
 
       }
     }
