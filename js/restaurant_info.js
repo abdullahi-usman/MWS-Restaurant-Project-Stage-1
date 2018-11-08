@@ -346,12 +346,12 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
 
 initRating = (restaurant = self.restaurant) => {
 
-  self.rating_form = new FormData()
-  self.rating_form.append('restaurant_id', parseInt(restaurant.id, 10))
+  self.rating_form = {}
+  self.rating_form.restaurant_id = parseInt(restaurant.id, 10)
 
   ratingOnClickListener = (event) => {
     const target = event.currentTarget;
-    self.rating_form.set('rating', parseInt(target.value, 10))
+    self.rating_form.rating = parseInt(target.value, 10)
 
 
     for (let i = 5; i > 0; i--) {
@@ -375,14 +375,16 @@ initRating = (restaurant = self.restaurant) => {
   submitBtn.addEventListener('click', () => {
 
     const rating_name = document.getElementById('rating-name');
-    self.rating_form.set('name', rating_name.value);
+    self.rating_form.name = rating_name.value;
 
     const rating_comment = document.getElementById('rating-comment');
-    self.rating_form.set('comments', rating_comment.value);
+    self.rating_form.comments = rating_comment.value;
 
-    DBHelper.addReview(self.restaurant, self.rating_form, (review) => {
-      if (review) {
-        this.addReviews(review)
+    DBHelper.addReview(self.restaurant, self.rating_form, (response) => {
+      if (response && response.ok) {
+        this.addReviews(response.review)
+      } else {
+
       }
 
     })
