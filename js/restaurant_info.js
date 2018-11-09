@@ -384,16 +384,92 @@ initRating = (restaurant = self.restaurant) => {
     const rating_comment = document.getElementById('rating-comment');
     self.rating_form.comments = rating_comment.value;
 
-    DBHelper.addReview(self.restaurant, self.rating_form, (response) => {
-      if (response && response.ok) {
+    let review_added = false
+    DBHelper.addReview(self.restaurant, self.rating_form, function f(response) {
+      if (!review_added) {
         this.addReviews(response.review)
-      } else {
+        review_added = true
+      }
+
+      if (!response || !response.ok) {
+
+        makeToast("Failed to send review to the server, trying in 15 seconds...", true, true, 15, (pressed_button) => {
+          if (pressed_button === 'yes' || pressed_button === 'timeout') {
+            DBHelper.retrySendCacheReview(restaurant, response.review, f);
+          } else {
+            deleteReview(response.review);
+          }
+        })
 
       }
 
     })
 
   })
+}
+
+makeToast = (message, dialog = false, display_countdown = false, time, callback) => {
+  //let toastContainer = document.getElementById('toast-container');
+
+  if (!self.toastContainer) {
+    self.toastContainer = document.createElement('div');
+    toastContainer.setAttribute('id', 'toast-container');
+    toastContainer.setAttribute('class', 'toast-container')
+
+    document.body.appendChild(toastContainer);
+  }
+
+  const toast = document.createElement('div');
+  toast.setAttribute('class', 'toast');
+
+  const messageLabel = document.createElement('label');
+  messageLabel.setAttribute('class', 'toast-message');
+  messageLabel.innerHTML = message;
+
+  toast.appendChild(messageLabel)
+
+  if (dialog) {
+    const yesButton = document.createElement('div');
+    const noButton = document.createElement('div');
+
+    yesButton.setAttribute('class', 'toast-button');
+    noButton.setAttribute('class', 'toast-button');
+
+    yesButton.innerHTML = '<label>YES</label>';
+    noButton.innerHTML = '<label>NO</label>';
+
+    toast.appendChild(yesButton);
+    toast.appendChild(noButton);
+
+    yesButton.addEventListener('click', () => {
+      callback('yes')
+    })
+    noButton.addEventListener('click', () => {
+      callback('no')
+    })
+  } else {
+    messageLabel.setAttribute('style', 'width: 100%');
+  }
+
+  if (display_countdown) {
+    const timer = document.createElement('label');
+    timer.setAttribute('class', 'toast-timer')
+    timer.innerHTML = `Time remaining: ${time} seconds`
+    toast.appendChild(timer);
+
+    const timerId = setInterval(() => {
+      time = time - 1;
+      if (time <= 0) {
+        self.toastContainer.removeChild(toast);
+        clearInterval(timerId)
+        callback('timeout')
+      } else {
+        timer.innerHTML = `Time remaining: ${time} seconds`
+      }
+    }, 1000)
+  }
+
+  toastContainer.appendChild(toast)
 }
 
 /**
