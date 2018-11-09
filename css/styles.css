@@ -595,3 +595,76 @@ div.leaflet-control-attribution .leaflet-control {
 .reviews-submit:active {
   box-shadow: 0px 2px 2px rgba(0, 0, 0.2);
 }
+
+/* toast */
+
+.toast-container {
+  position: fixed;
+  bottom: 1em;
+  left: 10px;
+  display: inline-block;
+  width: 30%;
+  z-index: 1000;
+}
+
+
+
+.toast {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  flex-wrap: nowrap;
+  width: 100%;
+  background-color: #5b8220;
+  padding: 1.2em;
+  border: 1px solid #456f06;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.toast-message {
+  order: 0;
+  width: 75%;
+  text-align: center;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.toast-button {
+  order: 1;
+  width: 25%;
+  margin: auto;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.toast-button:hover,
+.toast-button:focus {
+  background-color: #ffead540;
+}
+
+.toast-timer {
+  display: inline-block;
+  position: absolute;
+  bottom: 2px
+}
+
+@media screen and (max-width: 800px) {
+  .toast-container {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .toast-container {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .toast-container {
+    width: 100%;
+  }
+}
