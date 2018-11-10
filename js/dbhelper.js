@@ -12,6 +12,10 @@ class DBHelper {
     return `http://localhost:1337/restaurants`;
   }
 
+  static get DB_VERSION() {
+    return 1;
+  }
+
   static get PATH() {
     let path = window.location.pathname.substring(window.location.pathname.indexOf('/'), window.location.pathname.lastIndexOf('/') + 1);
 
@@ -20,7 +24,7 @@ class DBHelper {
 
   static get DB() {
     if (this.idbPromised == null) {
-      this.idbPromised = idb.open('restaurants.db', 1, upgradeDb => {
+      this.idbPromised = idb.open('restaurants.db', this.DB_VERSION, upgradeDb => {
         return upgradeDb.createObjectStore('restaurants');
       })
     }
