@@ -112,6 +112,7 @@ class DBHelper {
       if (!response.ok) {
         response.review.is_cache = true;
         response.review.cache_id = Date.now()
+        response.review.createdAt = response.review.cache_id
       }
 
       restaurant.reviews.push(response.review);
