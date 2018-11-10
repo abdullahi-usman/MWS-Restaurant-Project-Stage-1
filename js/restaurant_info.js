@@ -83,6 +83,24 @@ init = () => {
   });
 }
 
+retryPendingWorkload = (restaurant = self.restaurant) => {
+
+  DBHelper.retrySendCacheReviews(restaurant, response => {
+    if (response.ok) {
+      debugger;
+      updateReview(response.review)
+    }
+  })
+
+  if (restaurant.is_favorite_cache) {
+    DBHelper.retryToggleFavorite(restaurant, (new_restaurant) => {
+      if (!new_restaurant.is_favorite_cache) {
+        updateFavStatus()
+      }
+    })
+  }
+}
+
 /* window.initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
