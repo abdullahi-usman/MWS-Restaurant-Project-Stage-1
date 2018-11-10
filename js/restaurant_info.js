@@ -288,6 +288,7 @@ createReviewHTML = (review) => {
   li.appendChild(deleteIcon);
 
   const name = document.createElement('p');
+  name.setAttribute('id', 'reviewer-name');
   name.innerHTML = review.name;
   li.appendChild(name);
 
@@ -296,10 +297,12 @@ createReviewHTML = (review) => {
   li.appendChild(date);
 
   const rating = document.createElement('p');
+  rating.setAttribute('id', 'reviewer-rating');
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 
   const comments = document.createElement('p');
+  comments.setAttribute('reviewer-comments')
   comments.innerHTML = review.comments;
   li.appendChild(comments);
 
