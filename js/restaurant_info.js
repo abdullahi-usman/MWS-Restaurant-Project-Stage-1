@@ -379,9 +379,11 @@ updateFavStatus = () => {
 favIconClickListener = () => {
   DBHelper.toggleFavorite(self.restaurant, new_restaurant => {
 
-    if (new_restaurant != null) {
+    if (new_restaurant != null || !new_restaurant.is_favorite_cache) {
       self.restaurant = new_restaurant;
       toggleFavIcon(new_restaurant.is_favorite);
+    } else {
+      makeToast('Failed to mark restaurant as favorite, retrying later...', time = 5);
     }
   })
 }
