@@ -346,10 +346,10 @@ createReviewHTML = (review) => {
 
   if (review.is_cache) {
     status.innerText = "Status : pending"
-    status.setAttribute('style', 'color: blue')
+    status.style.color = 'blue'
   } else {
     status.innerText = "Status : Sent"
-    status.setAttribute('style', 'color: green')
+    status.style.color = 'green'
   }
   status.setAttribute('aria-label', status.innerText);
 
