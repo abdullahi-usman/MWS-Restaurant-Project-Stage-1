@@ -297,7 +297,12 @@ addReviews = (...reviews) => {
 
 deleteReview = (review) => {
   DBHelper.removeReview(self.restaurant, review);
-  self.ul.removeChild(li);
+
+  for (const child of self.ul.children) {
+    if (review.name === child.querySelector('#reviewer-name').innerText && review.comments === child.querySelector('#reviewer-comments').innerText) {
+      self.ul.removeChild(child);
+    }
+  }
 }
 
 /**
