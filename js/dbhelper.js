@@ -148,12 +148,26 @@ class DBHelper {
   }
 
 
-  static retrySendCacheReviews(restaurant) {
+  static retrySendCacheReviews(restaurant, callback) {
+    const failedReviews = []
     for (let review of restaurant.reviews) {
       if (review.is_cache) {
-        this.retrySendCacheReview(restaurant, review, null);
+        failedReviews.push(review)
       }
     }
+
+
+    if (failedReviews.length <= 0) return;
+
+    this.retrySendCacheReview(restaurant, failedReviews.pop(), function f(response) {
+
+      if (failedReviews.length > 0) {
+        DBHelper.retrySendCacheReview(restaurant, failedReviews.pop(), f);
+      }
+      if (callback) {
+        callback(response);
+      }
+    });
   }
 
 
