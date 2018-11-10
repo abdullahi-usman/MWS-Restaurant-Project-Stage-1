@@ -387,6 +387,25 @@ favIconClickListener = () => {
     }
   })
 }
+
+updateReview = (review) => {
+  debugger;
+  for (const child of self.ul.children) {
+    if (review.name === child.querySelector('#reviewer-name').innerText && review.comments === child.querySelector('#reviewer-comments').innerText) {
+      const status = child.querySelector('#review-status');
+
+      debugger;
+      if (review.is_cache) {
+        status.innerText = "Status : pending"
+        status.style.color = 'blue'
+      } else {
+        status.innerText = "Status : Sent"
+        status.style.color = 'green'
+      }
+      break;
+    }
+  }
+}
 /**
  * Add restaurant name to the breadcrumb navigation menu
  */
