@@ -364,6 +364,15 @@ toggleFavIcon = () => {
   } else {
     self.favIcon.setAttribute('class', 'fa fa-heart-o')
   }
+
+  updateFavStatus()
+}
+
+updateFavStatus = () => {
+  if (!self.restaurant.is_favorite_cache) {
+    self.favIcon.style.color = 'inherit'
+  } else {
+    self.favIcon.style.color = 'orange'
   }
 }
 
