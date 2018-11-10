@@ -456,6 +456,7 @@ initRating = (restaurant = self.restaurant) => {
 
   const submitBtn = document.getElementById('reviews-submit');
   submitBtn.addEventListener('click', () => {
+    self.failedReviewRetries = 0;
 
     const rating_name = document.getElementById('rating-name');
     self.rating_form.name = rating_name.value;
@@ -468,9 +469,16 @@ initRating = (restaurant = self.restaurant) => {
       if (!review_added) {
         this.addReviews(response.review)
         review_added = true
+      } else {
+        updateReview(response.review)
       }
 
       if (!response || !response.ok) {
+
+        self.failedReviewRetries = self.failedReviewRetries + 1
+        if (self.failedReviewRetries >= 5) {
+          makeToast("Review update will retry later");
+        }
 
         makeToast("Failed to send review to the server, trying in 15 seconds...", true, true, 15, (pressed_button) => {
           if (pressed_button === 'yes' || pressed_button === 'timeout') {
