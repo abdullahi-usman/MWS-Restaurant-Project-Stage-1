@@ -358,11 +358,12 @@ createReviewHTML = (review) => {
 }
 
 toggleFavIcon = () => {
-  const fav = document.getElementById('fav-icon');
+  self.favIcon = document.getElementById('fav-icon');
   if (self.restaurant.is_favorite === "true" || self.restaurant.is_favorite === true) {
-    fav.setAttribute('class', 'fa fa-heart')
+    self.favIcon.setAttribute('class', 'fa fa-heart')
   } else {
-    fav.setAttribute('class', 'fa fa-heart-o')
+    self.favIcon.setAttribute('class', 'fa fa-heart-o')
+  }
   }
 }
 
