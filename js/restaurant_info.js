@@ -335,14 +335,14 @@ createReviewHTML = (review) => {
   li.appendChild(rating);
 
   const comments = document.createElement('p');
-  comments.setAttribute('reviewer-comments')
+  comments.setAttribute('id', 'reviewer-comments')
   comments.innerHTML = review.comments;
   li.appendChild(comments);
 
   li.setAttribute('tabIndex', '0');
   li.setAttribute('aria-label', `Review from ${review.name} on ${review.date} with ${review.rating} rating. ${review.comments}`)
   const status = document.createElement('span');
-  status.setAttribute('id', '#review-status');
+  status.setAttribute('id', 'review-status');
 
   if (review.is_cache) {
     status.innerText = "Status : pending"
