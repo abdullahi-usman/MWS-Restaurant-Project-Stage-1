@@ -79,8 +79,18 @@ init = () => {
       fillBreadcrumb();
 
       initRating()
+
+      self.addEventListener('online', () => {
+        onNetworkConfigChanges();
+      })
+
+      retryPendingWorkload()
     }
   });
+}
+
+onNetworkConfigChanges = () => {
+  retryPendingWorkload();
 }
 
 retryPendingWorkload = (restaurant = self.restaurant) => {
