@@ -603,7 +603,7 @@ makeToast = (message, time = 3, dialog = false, display_countdown = false, callb
         callback('no')
     })
   } else {
-    messageLabel.setAttribute('style', 'width: 100%');
+    messageLabel.style.width = '100%';
   }
 
   let timer = null;
