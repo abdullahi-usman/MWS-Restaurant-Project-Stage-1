@@ -506,8 +506,7 @@ initRating = (restaurant = self.restaurant) => {
   })
 }
 
-makeToast = (message, dialog = false, display_countdown = false, time, callback) => {
-  //let toastContainer = document.getElementById('toast-container');
+makeToast = (message, time = 3, dialog = false, display_countdown = false, callback = null) => {
 
   if (!self.toastContainer) {
     self.toastContainer = document.createElement('div');
