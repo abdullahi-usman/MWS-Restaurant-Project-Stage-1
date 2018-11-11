@@ -233,6 +233,9 @@ calAvgRtn = (restaurant) => {
       const rate = document.getElementById(`restaurant-${restaurant.id}-rating-${i}`)
       rate.classList.replace('fa-star-o', 'fa-star-half-o')
     }
+
+    const averageRating = document.getElementById(`restaurant-${restaurant.id}-rating`);
+    averageRating.setAttribute('aria-label', `average rating ${avgRtn}`);
   })
 }
 
@@ -293,12 +296,14 @@ createRestaurantHTML = (restaurant) => {
 
 
   const averageRating = document.createElement('ul');
+  averageRating.setAttribute('id', `restaurant-${restaurant.id}-rating`);
   averageRating.setAttribute('class', 'rating');
   averageRating.style.textAlign = 'center'
   averageRating.style.padding = 0
   for (let i = 0; i <= 5; i++) {
     const rate = document.createElement('li');
     rate.setAttribute('id', `restaurant-${restaurant.id}-rating-${i}`)
+    rate.setAttribute('tabIndex', '-1')
     rate.setAttribute('class', 'fa fa-star-o rating-option')
     averageRating.appendChild(rate)
   }
