@@ -518,14 +518,19 @@ initRating = (restaurant = self.restaurant) => {
     }
     self.rating_form.comments = rating_comment.value;
 
-    let review_added = false
-    DBHelper.addReview(self.restaurant, self.rating_form, function f(response) {
 
-      if (!review_added) {
+
+    DBHelper.addReview(self.restaurant, self.rating_form, function f(response) {
+      delete self.rating_form.id
+      rating_comment.value = ""
+      rating_name.value = ""
+      window.location.href = `#review-${response.review.id}`
+
+      if (!self.ul.querySelector(`#review-${response.review.id}`)) {
         this.addReviews(response.review)
         review_added = true
       } else {
-        updateReview(response.review)
+        updateReview(response.review.id, response.review)
       }
 
       if (!response || !response.ok) {
