@@ -290,7 +290,7 @@ div#options {
   justify-content: center;
 }
 
-#restaurants-list li {
+#restaurants-list>li {
   background-color: #fff;
   border: 2px solid #ccc;
   border-radius: 10px;
