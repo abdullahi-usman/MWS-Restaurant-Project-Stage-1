@@ -319,7 +319,10 @@ deleteReview = (review) => {
  * Create review HTML and add it to the webpage.
  */
 createReviewHTML = (review) => {
+  const id = review.id || review.cache_id;
+
   const li = document.createElement('li');
+  li.setAttribute('id', `review-${id}`)
 
   const deleteIcon = document.createElement('span');
   deleteIcon.setAttribute('class', 'fa fa-trash reviews-action');
@@ -353,7 +356,7 @@ createReviewHTML = (review) => {
   li.appendChild(reviewsActionContainer)
 
   const name = document.createElement('p');
-  name.setAttribute('id', 'reviewer-name');
+  name.setAttribute('id', `review-name-${id}`);
   name.innerHTML = review.name;
   li.appendChild(name);
 
@@ -362,19 +365,19 @@ createReviewHTML = (review) => {
   li.appendChild(date);
 
   const rating = document.createElement('p');
-  rating.setAttribute('id', 'reviewer-rating');
+  rating.setAttribute('id', `review-rating-${id}`);
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 
   const comments = document.createElement('p');
-  comments.setAttribute('id', 'reviewer-comments')
+  comments.setAttribute('id', `review-comments-${id}`)
   comments.innerHTML = review.comments;
   li.appendChild(comments);
 
   li.setAttribute('tabIndex', '0');
   li.setAttribute('aria-label', `Review from ${review.name} on ${review.date} with ${review.rating} rating. ${review.comments}`)
   const status = document.createElement('span');
-  status.setAttribute('id', 'review-status');
+  status.setAttribute('id', `review-status-${id}`);
 
   if (review.is_cache) {
     status.innerText = "Status : pending"
