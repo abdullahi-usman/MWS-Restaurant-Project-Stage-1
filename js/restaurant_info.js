@@ -469,6 +469,19 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
   toggleFavIcon(restaurant.is_favorite)
 }
 
+setRating = (rating) => {
+  for (let i = 5; i > 0; i--) {
+    const ratingBtn = document.getElementById(`rating-star-${i}`)
+
+    if (i <= rating) {
+      ratingBtn.classList.replace('fa-star-o', 'fa-star')
+    } else {
+      ratingBtn.classList.replace('fa-star', 'fa-star-o')
+    }
+
+  }
+}
+
 initRating = (restaurant = self.restaurant) => {
 
   self.rating_form = {}
@@ -479,18 +492,7 @@ initRating = (restaurant = self.restaurant) => {
   ratingOnClickListener = (event) => {
     const target = event.currentTarget;
     self.rating_form.rating = parseInt(target.value, 10)
-
-
-    for (let i = 5; i > 0; i--) {
-      const ratingBtn = document.getElementById(`rating-star-${i}`)
-
-      if (i <= target.value) {
-        ratingBtn.classList.replace('fa-star-o', 'fa-star')
-      } else {
-        ratingBtn.classList.replace('fa-star', 'fa-star-o')
-      }
-
-    }
+    setRating(target.value);
   };
 
   for (let i = 1; i <= 5; i++) {
