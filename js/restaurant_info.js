@@ -276,6 +276,8 @@ addReviews = (...reviews) => {
   }
 
   for (let review of reviews) {
+    if (review.is_cache_deleted) continue;
+
     if (ul.children.length > 0) {
       ul.insertBefore(createReviewHTML(review), ul.firstChild)
     } else {
