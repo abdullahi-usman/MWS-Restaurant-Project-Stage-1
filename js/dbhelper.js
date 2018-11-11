@@ -73,9 +73,9 @@ class DBHelper {
     })
   }
 
-  static sendReview(restaurant_id, review, callback) {
+  static sendReview(url, review, callback) {
     const xhr = new XMLHttpRequest()
-    xhr.open('POST', 'http://localhost:1337/reviews/', true);
+    xhr.open('POST', url, true);
 
     const result = {}
     result.ok = false
@@ -132,7 +132,7 @@ class DBHelper {
     delete review.is_cache;
     delete review.cache_id
 
-    this.sendReview(restaurant.id, review, response => {
+    this.sendReview('http://localhost:1337/reviews/', review, response => {
 
       if (response.ok) {
         restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
