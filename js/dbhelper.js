@@ -149,6 +149,8 @@ class DBHelper {
 
 
   static retrySendCacheReviews(restaurant, callback) {
+    if (!restaurant.reviews) return
+
     const failedReviews = []
     for (let review of restaurant.reviews) {
       if (review.is_cache) {
