@@ -128,7 +128,12 @@ class DBHelper {
 
   static addReview(restaurant, review, callback) {
 
-    this.sendReview('http://localhost:1337/reviews/', review, response => {
+    let url = 'http://localhost:1337/reviews/';
+    if (review.id) {
+      url = `http://localhost:1337/reviews/${review.id}`
+    }
+    
+    this.sendReview(url, review, response => {
       DBHelper.onHandleReviewResponse(restaurant, response);
       callback(response)
     })
