@@ -83,25 +83,18 @@ init = () => {
       self.addEventListener('online', () => {
         onNetworkConfigChanges();
       })
-
-      retryPendingWorkload()
+      
+      retryPendingFavorite();
     }
   });
 }
 
 onNetworkConfigChanges = () => {
-  retryPendingWorkload();
+  retryPendingFavorite();
+  retryPendingReviews();
 }
 
-retryPendingWorkload = (restaurant = self.restaurant) => {
-
-  DBHelper.retrySendCacheReviews(restaurant, response => {
-    if (response.ok) {
-      debugger;
-      updateReview(response.review)
-    }
-  })
-
+retryPendingFavorite = (restaurant = self.restaurant) => {
   if (restaurant.is_favorite_cache) {
     DBHelper.retryToggleFavorite(restaurant, (new_restaurant) => {
       if (!new_restaurant.is_favorite_cache) {
@@ -109,6 +102,15 @@ retryPendingWorkload = (restaurant = self.restaurant) => {
       }
     })
   }
+}
+
+retryPendingReviews = (restaurant = self.restaurant) => {
+  DBHelper.retrySendCacheReviews(restaurant, response => {
+    if (response.ok) {
+      debugger;
+      updateReview(response.review)
+    }
+  })
 }
 
 /* window.initMap = () => {
@@ -196,10 +198,12 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     DBHelper.fetchReviews(self.restaurant, (reviews) => {
       self.restaurant.reviews = reviews;
       fillReviewsHTML();
+      retryPendingReviews();
     })
   } else {
     // fill reviews
     fillReviewsHTML();
+    retryPendingReviews();
   }
 }
 
