@@ -547,10 +547,12 @@ makeToast = (message, time = 3, dialog = false, display_countdown = false, callb
     toast.appendChild(noButton);
 
     yesButton.addEventListener('click', () => {
-      callback('yes')
+      if (callback)
+        callback('yes')
     })
     noButton.addEventListener('click', () => {
-      callback('no')
+      if (callback)
+        callback('no')
     })
   } else {
     messageLabel.setAttribute('style', 'width: 100%');
