@@ -213,6 +213,29 @@ onImageIntersectionListener = (images) => {
   })
 }
 
+calAvgRtn = (restaurant) => {
+
+  DBHelper.fetchReviews(restaurant, reviews => {
+    let avgRtn = 0;
+    for (let review of reviews) {
+      avgRtn = avgRtn + parseFloat(review.rating)
+    }
+
+    avgRtn = avgRtn / reviews.length
+
+    let i = 0;
+    for (i; i < avgRtn; i++) {
+      const rate = document.getElementById(`restaurant-${restaurant.id}-rating-${i}`)
+      rate.classList.replace('fa-star-o', 'fa-star')
+    }
+
+    if (avgRtn - i >= 0.5) {
+      const rate = document.getElementById(`restaurant-${restaurant.id}-rating-${i}`)
+      rate.classList.replace('fa-star-o', 'fa-star-half-o')
+    }
+  })
+}
+
 /**
  * Create restaurant HTML.
  */
@@ -267,6 +290,22 @@ createRestaurantHTML = (restaurant) => {
   const name = document.createElement('h3');
   name.innerHTML = restaurant.name;
   li.append(name);
+
+
+  const averageRating = document.createElement('ul');
+  averageRating.setAttribute('class', 'rating');
+  averageRating.style.textAlign = 'center'
+  averageRating.style.padding = 0
+  for (let i = 0; i <= 5; i++) {
+    const rate = document.createElement('li');
+    rate.setAttribute('id', `restaurant-${restaurant.id}-rating-${i}`)
+    rate.setAttribute('class', 'fa fa-star-o rating-option')
+    averageRating.appendChild(rate)
+  }
+
+  li.appendChild(averageRating)
+
+  calAvgRtn(restaurant)
 
   const neighborhood = document.createElement('p');
   neighborhood.innerHTML = restaurant.neighborhood;
