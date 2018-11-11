@@ -438,6 +438,8 @@ initRating = (restaurant = self.restaurant) => {
 
   self.rating_form = {}
   self.rating_form.restaurant_id = parseInt(restaurant.id, 10)
+  self.rating_form.rating = 1;
+  document.getElementById(`rating-star-1`).classList.replace('fa-star-o', 'fa-star')
 
   ratingOnClickListener = (event) => {
     const target = event.currentTarget;
