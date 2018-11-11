@@ -128,6 +128,12 @@ class DBHelper {
 
   }
 
+  static updateReview(restaurant, review, callback) {
+    this.sendReview(`http://localhost:1337/reviews/${restaurant.id}`, review, response => {
+      this.onHandleReviewResponse(restaurant, response)
+    })
+  }
+
   static retrySendCacheReview(restaurant, review, callback) {
 
     const cache_id = review.cache_id;
