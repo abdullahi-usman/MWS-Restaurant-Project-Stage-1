@@ -579,6 +579,12 @@ makeToast = (message, time = 3, dialog = false, display_countdown = false, callb
     const yesButton = document.createElement('div');
     const noButton = document.createElement('div');
 
+    yesButton.setAttribute('role', 'button')
+    yesButton.setAttribute('aria-label', 'yes');
+
+    noButton.setAttribute('role', 'button')
+    noButton.setAttribute('aria-label', 'no')
+
     yesButton.setAttribute('class', 'toast-button');
     noButton.setAttribute('class', 'toast-button');
 
