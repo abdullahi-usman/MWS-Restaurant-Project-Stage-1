@@ -211,7 +211,15 @@ class DBHelper {
       }
 
       callback(new_restaurant)
-    });
+    }).catch(reason => {
+      console.log('failed to change favorite status: %o', reason)
+      restaurant.is_favorite = !restaurant.is_favorite || restaurant.is_favorite === 'true' ? 'false' : 'true'
+      restaurant.is_favorite_cache = true;
+      this.updateDb(restaurant)
+      callback(restaurant);
+    })
+  }
+
   }
 
   /**
