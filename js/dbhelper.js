@@ -160,7 +160,6 @@ class DBHelper {
       }
     }
 
-
     if (failedReviews.length <= 0) return;
 
     this.retrySendCacheReview(restaurant, failedReviews.pop(), function f(response) {
@@ -239,6 +238,39 @@ class DBHelper {
     delete restaurant.is_favorite_cache
     restaurant.is_favorite = !restaurant.is_favorite || restaurant.is_favorite === 'true' ? 'false' : 'true'
     this.toggleFavorite(restaurant, callback)
+  }
+
+  static retryDeleteCachedReviews(restaurant, callback = null) {
+
+    if (!restaurant.reviews) {
+      if (callback)
+        callback();
+      return;
+    }
+
+    const deletedReviews = []
+    for (let review of restaurant.reviews) {
+      if (review.is_cache_deleted) {
+        deletedReviews.push(review)
+      }
+    }
+
+    if (deletedReviews.length <= 0) {
+      if (callback)
+        callback();
+      return;
+    }
+
+    this.removeReview(restaurant, deletedReviews.pop(), function f(ok) {
+
+      if (deletedReviews.length > 0) {
+        DBHelper.removeReview(restaurant, deletedReviews.pop(), f);
+      } else {
+
+        if (callback)
+          callback();
+      }
+    })
   }
 
   /**
