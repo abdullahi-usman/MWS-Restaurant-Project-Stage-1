@@ -83,7 +83,7 @@ init = () => {
       self.addEventListener('online', () => {
         onNetworkConfigChanges();
       })
-      
+
       retryPendingFavorite();
     }
   });
@@ -105,12 +105,14 @@ retryPendingFavorite = (restaurant = self.restaurant) => {
 }
 
 retryPendingReviews = (restaurant = self.restaurant) => {
-  DBHelper.retrySendCacheReviews(restaurant, response => {
-    if (response.ok) {
-      debugger;
-      updateReview(response.review)
-    }
-  })
+
+  DBHelper.retryDeleteCachedReviews(restaurant, () => {
+    DBHelper.retrySendCacheReviews(restaurant, response => {
+      if (response.ok) {
+        updateReview(response.review)
+      }
+    })
+  });
 }
 
 /* window.initMap = () => {
