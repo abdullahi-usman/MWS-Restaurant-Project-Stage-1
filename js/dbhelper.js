@@ -43,7 +43,7 @@ class DBHelper {
           let xhr = new XMLHttpRequest();
           xhr.open('GET', DBHelper.DATABASE_URL);
           xhr.onload = () => {
-            if (xhr.readyStatead === 4 && xhr.status === 200) { // Got a success response from server!
+            if (xhr.readyState === 4 && xhr.status === 200) { // Got a success response from server!
               const restaurants = JSON.parse(xhr.responseText)
               const store = db.transaction('restaurants', 'readwrite').objectStore('restaurants')
               for (var restaurant of restaurants) {
@@ -121,7 +121,7 @@ class DBHelper {
         restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
       }
     }
-    
+
     restaurant.reviews.push(response.review);
     DBHelper.updateDb(restaurant);
   }
@@ -132,7 +132,7 @@ class DBHelper {
     if (review.id) {
       url = `http://localhost:1337/reviews/${review.id}`
     }
-    
+
     this.sendReview(url, review, response => {
       DBHelper.onHandleReviewResponse(restaurant, response);
       callback(response)
