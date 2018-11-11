@@ -43,7 +43,7 @@ class DBHelper {
           let xhr = new XMLHttpRequest();
           xhr.open('GET', DBHelper.DATABASE_URL);
           xhr.onload = () => {
-            if (xhr.status === 200) { // Got a success response from server!
+            if (xhr.readyStatead === 4 && xhr.status === 200) { // Got a success response from server!
               const restaurants = JSON.parse(xhr.responseText)
               const store = db.transaction('restaurants', 'readwrite').objectStore('restaurants')
               for (var restaurant of restaurants) {
@@ -82,16 +82,18 @@ class DBHelper {
     result.review = review
 
     xhr.onreadystatechange = function () {
+      if (this.readyState === 4) {
 
-      if (this.status == 200 || this.status == 201) {
-        result.ok = true
-        result.review = JSON.parse(this.responseText);
+        if (this.status === 200 || this.status === 201) {
+          result.ok = true
+          result.review = JSON.parse(this.responseText);
+        }
+
+        if (callback) {
+          callback(result);
+        }
+
       }
-
-      if (callback) {
-        callback(result);
-      }
-
     }
 
     try {
@@ -173,28 +175,41 @@ class DBHelper {
   }
 
 
-  static removeReview(restaurant, old_review) {
+  static removeReview(restaurant, old_review, callback = null) {
+
     if (old_review.is_cache || !old_review.id) {
       restaurant.reviews.splice(restaurant.reviews.indexOf(old_review), 1);
       this.updateDb(restaurant);
     } else {
       const xhr = new XMLHttpRequest();
       xhr.open('DELETE', `http://localhost:1337/reviews/${old_review.id}`);
-      xhr.onload = () => {
-        if (xhr.status === 200 || xhr.status == 404) {
-          for (let review of restaurant.reviews) {
-            if (review.id == old_review.id) {
-              restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200 || xhr.status === 404) {
+            for (let review of restaurant.reviews) {
+              if (review.id == old_review.id) {
+                restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
+              }
             }
+          } else {
+
+            old_review.is_cache_deleted = true
           }
 
-          this.updateDb(restaurant)
-        } else {
 
+          this.updateDb(restaurant)
+
+          if (callback) {
+            callback(xhr.status === 200 || xhr.status == 404 ? true : false)
+          }
         }
       }
 
-      xhr.send();
+      try {
+        xhr.send();
+      } catch (e) {
+        callback(false);
+      }
     }
   }
 
