@@ -468,9 +468,17 @@ initRating = (restaurant = self.restaurant) => {
     self.failedReviewRetries = 0;
 
     const rating_name = document.getElementById('rating-name');
+    if (rating_name.value.length <= 0) {
+      makeToast("Review name cannot be empty", 3);
+      return
+    }
     self.rating_form.name = rating_name.value;
 
     const rating_comment = document.getElementById('rating-comment');
+    if (rating_comment.value.length <= 0) {
+      makeToast("Review comments cannot be empty", 3);
+      return
+    }
     self.rating_form.comments = rating_comment.value;
 
     let review_added = false
