@@ -115,6 +115,13 @@ class DBHelper {
       response.review.createdAt = response.review.cache_id
     }
 
+    for (const review of restaurant.reviews) {
+      if ((review.id && response.review.id && (review.id === response.review.id)) ||
+        ((review.cache_id && response.review.cache_id) && review.cache_id === response.review.cache_id)) {
+        restaurant.reviews.splice(restaurant.reviews.indexOf(review), 1);
+      }
+    }
+    
     restaurant.reviews.push(response.review);
     DBHelper.updateDb(restaurant);
   }
