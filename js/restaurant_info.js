@@ -485,7 +485,8 @@ initRating = (restaurant = self.restaurant) => {
 
         self.failedReviewRetries = self.failedReviewRetries + 1
         if (self.failedReviewRetries >= 5) {
-          makeToast("Review update will retry later");
+          makeToast("Review update will retry later", time = 5);
+          return;
         }
 
         makeToast("Failed to send review to the server, trying in 15 seconds...", true, true, 15, (pressed_button) => {
