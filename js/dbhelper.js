@@ -104,22 +104,25 @@ class DBHelper {
     }
   }
 
+  static onHandleReviewResponse(restaurant, response) {
+    if (!restaurant.reviews) {
+      restaurant.reviews = []
+    }
+
+    if (!response.ok) {
+      response.review.is_cache = true;
+      response.review.cache_id = Date.now()
+      response.review.createdAt = response.review.cache_id
+    }
+
+    restaurant.reviews.push(response.review);
+    DBHelper.updateDb(restaurant);
+  }
+
   static addReview(restaurant, review, callback) {
 
-    this.sendReview(restaurant.id, review, response => {
-      if (!restaurant.reviews) {
-        restaurant.reviews = []
-      }
-
-      if (!response.ok) {
-        response.review.is_cache = true;
-        response.review.cache_id = Date.now()
-        response.review.createdAt = response.review.cache_id
-      }
-
-      restaurant.reviews.push(response.review);
-      DBHelper.updateDb(restaurant);
-
+    this.sendReview('http://localhost:1337/reviews/', review, response => {
+      DBHelper.onHandleReviewResponse(restaurant, response);
       callback(response)
     })
 
