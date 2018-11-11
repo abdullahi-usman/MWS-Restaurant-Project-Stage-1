@@ -322,13 +322,35 @@ createReviewHTML = (review) => {
   const li = document.createElement('li');
 
   const deleteIcon = document.createElement('span');
-  deleteIcon.setAttribute('class', 'fa fa-trash reviews-delete');
+  deleteIcon.setAttribute('class', 'fa fa-trash reviews-action');
 
   deleteIcon.addEventListener('click', () => {
     deleteReview(review);
   })
 
-  li.appendChild(deleteIcon);
+
+  const editIcon = document.createElement('span')
+  editIcon.setAttribute('class', 'fa fa-edit reviews-action')
+
+  editIcon.addEventListener('click', () => {
+    window.location.href = "#reviews-form"
+    const name = document.getElementById('rating-name');
+    name.value = review.name
+
+    const comment = document.getElementById('rating-comment');
+    comment.value = review.comments
+
+    setRating(review.rating);
+    self.rating_form.id = review.id
+  })
+
+  const reviewsActionContainer = document.createElement('div');
+  reviewsActionContainer.setAttribute('class', 'reviews-actions-container');
+
+  reviewsActionContainer.appendChild(editIcon);
+  reviewsActionContainer.appendChild(deleteIcon);
+
+  li.appendChild(reviewsActionContainer)
 
   const name = document.createElement('p');
   name.setAttribute('id', 'reviewer-name');
