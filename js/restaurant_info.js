@@ -571,6 +571,7 @@ makeToast = (message, time = 3, dialog = false, display_countdown = false, callb
 
   const messageLabel = document.createElement('label');
   messageLabel.setAttribute('class', 'toast-message');
+  message.setAttribute('aria-label', message);
   messageLabel.innerHTML = message;
 
   toast.appendChild(messageLabel)
