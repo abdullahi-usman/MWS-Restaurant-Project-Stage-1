@@ -397,12 +397,11 @@ favIconClickListener = () => {
 }
 
 updateReview = (review) => {
-  debugger;
+
   for (const child of self.ul.children) {
     if (review.name === child.querySelector('#reviewer-name').innerText && review.comments === child.querySelector('#reviewer-comments').innerText) {
       const status = child.querySelector('#review-status');
 
-      debugger;
       if (review.is_cache) {
         status.innerText = "Status : pending"
         status.style.color = 'blue'
@@ -474,6 +473,7 @@ initRating = (restaurant = self.restaurant) => {
 
     let review_added = false
     DBHelper.addReview(self.restaurant, self.rating_form, function f(response) {
+
       if (!review_added) {
         this.addReviews(response.review)
         review_added = true
