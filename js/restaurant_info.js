@@ -272,20 +272,20 @@ addReviews = (...reviews) => {
 
   if (!self.ul) {
     self.ul = document.getElementById('reviews-list');
-    ul.setAttribute('aria-label', 'Customers Reviews');
+    self.ul.setAttribute('aria-label', 'Customers Reviews');
   }
 
   for (let review of reviews) {
     if (review.is_cache_deleted) continue;
 
-    if (ul.children.length > 0) {
-      ul.insertBefore(createReviewHTML(review), ul.firstChild)
+    if (self.ul.children.length > 0) {
+      self.ul.insertBefore(createReviewHTML(review), ul.firstChild)
     } else {
-      ul.appendChild(createReviewHTML(review));
+      self.ul.appendChild(createReviewHTML(review));
     }
   }
 
-  ul.addEventListener('focus', focusevent => {
+  self.ul.addEventListener('focus', focusevent => {
 
     for (let child of hours.children) {
       child.setAttribute('tabIndex', '-1');
@@ -294,9 +294,11 @@ addReviews = (...reviews) => {
     hours.setAttribute('tabIndex', '0');
   })
 
-  ul.firstChild.addEventListener('focus', focusevent => {
-    ul.setAttribute('tabIndex', '-1');
-  })
+  if (self.ul.firstChild) {
+    self.ul.firstChild.addEventListener('focus', focusevent => {
+      self.ul.setAttribute('tabIndex', '-1');
+    })
+  }
 
   if (!self.reviews_details.hasChildNodes) {
     self.reviews_details.appendChild(ul);
