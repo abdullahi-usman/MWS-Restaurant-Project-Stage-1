@@ -109,7 +109,9 @@ retryPendingReviews = (restaurant = self.restaurant) => {
   DBHelper.retryDeleteCachedReviews(restaurant, () => {
     DBHelper.retrySendCacheReviews(restaurant, response => {
       if (response.ok) {
-        updateReview(response.review)
+        updateReview(response.review.id, {
+          is_cache: response.review.is_cache
+        })
       }
     })
   });
