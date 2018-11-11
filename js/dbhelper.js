@@ -13,7 +13,7 @@ class DBHelper {
   }
 
   static get DB_VERSION() {
-    return 1;
+    return 2;
   }
 
   static get PATH() {
