@@ -220,6 +220,10 @@ class DBHelper {
     })
   }
 
+  static retryToggleFavorite(restaurant, callback) {
+    delete restaurant.is_favorite_cache
+    restaurant.is_favorite = !restaurant.is_favorite || restaurant.is_favorite === 'true' ? 'false' : 'true'
+    this.toggleFavorite(restaurant, callback)
   }
 
   /**
