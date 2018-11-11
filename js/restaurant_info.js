@@ -391,7 +391,7 @@ favIconClickListener = () => {
       self.restaurant = new_restaurant;
       toggleFavIcon(new_restaurant.is_favorite);
     } else {
-      makeToast('Failed to mark restaurant as favorite, retrying later...', time = 5);
+      makeToast('Failed to mark restaurant as favorite, retrying later...', 5);
     }
   })
 }
@@ -495,11 +495,11 @@ initRating = (restaurant = self.restaurant) => {
 
         self.failedReviewRetries = self.failedReviewRetries + 1
         if (self.failedReviewRetries >= 5) {
-          makeToast("Review update will retry later", time = 5);
+          makeToast("Review update will retry later", 5);
           return;
         }
 
-        makeToast("Failed to send review to the server, trying in 15 seconds...", true, true, 15, (pressed_button) => {
+        makeToast("Failed to send review to the server, trying in 15 seconds...", 15, true, true, (pressed_button) => {
           if (pressed_button === 'yes' || pressed_button === 'timeout') {
             DBHelper.retrySendCacheReview(restaurant, response.review, f);
           } else {
