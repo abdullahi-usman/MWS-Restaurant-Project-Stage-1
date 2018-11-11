@@ -558,23 +558,30 @@ makeToast = (message, time = 3, dialog = false, display_countdown = false, callb
     messageLabel.setAttribute('style', 'width: 100%');
   }
 
+  let timer = null;
+
   if (display_countdown) {
-    const timer = document.createElement('label');
+    timer = document.createElement('label');
     timer.setAttribute('class', 'toast-timer')
     timer.innerHTML = `Time remaining: ${time} seconds`
     toast.appendChild(timer);
+  }
 
-    const timerId = setInterval(() => {
-      time = time - 1;
-      if (time <= 0) {
-        self.toastContainer.removeChild(toast);
-        clearInterval(timerId)
+  const timerId = setInterval(() => {
+    time = time - 1;
+    if (time <= 0) {
+      self.toastContainer.removeChild(toast);
+      clearInterval(timerId)
+      if (callback)
         callback('timeout')
-      } else {
+    } else {
+      if (timer) {
         timer.innerHTML = `Time remaining: ${time} seconds`
       }
-    }, 1000)
-  }
+    }
+  }, 1000)
+
+
 
   toastContainer.appendChild(toast)
 }
