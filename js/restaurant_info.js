@@ -419,21 +419,31 @@ favIconClickListener = () => {
   })
 }
 
-updateReview = (review) => {
+updateReview = (id, update) => {
+  const review = self.ul.querySelector(`#review-${id}`)
 
-  for (const child of self.ul.children) {
-    if (review.name === child.querySelector('#reviewer-name').innerText && review.comments === child.querySelector('#reviewer-comments').innerText) {
-      const status = child.querySelector('#review-status');
+  const status = review.querySelector(`#review-status-${id}`);
+  if (update.is_cache) {
+    status.innerText = "Status : pending"
+    status.style.color = 'blue'
+  } else {
+    status.innerText = "Status : Sent"
+    status.style.color = 'green'
+  }
 
-      if (review.is_cache) {
-        status.innerText = "Status : pending"
-        status.style.color = 'blue'
-      } else {
-        status.innerText = "Status : Sent"
-        status.style.color = 'green'
-      }
-      break;
-    }
+  const name = review.querySelector(`#review-name-${id}`);
+  if (update.name) {
+    name.innerHTML = update.name
+  }
+
+  const comments = review.querySelector(`#review-comments-${id}`);
+  if (update.comments) {
+    comments.innerHTML = update.comments
+  }
+
+  const rating = review.querySelector(`#review-rating-${id}`)
+  if (update.rating) {
+    rating.innerHTML = `Rating: ${update.rating}`
   }
 }
 /**
